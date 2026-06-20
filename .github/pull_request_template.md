@@ -7,7 +7,6 @@ Describe what this PR cleans up or fixes.
 - [ ] Repo layout cleanup
 - [ ] Build fix
 - [ ] Documentation
-- [ ] Upstream sync
 - [ ] Test/benchmark/tooling
 - [ ] Other
 
@@ -20,4 +19,4 @@ Describe what this PR cleans up or fixes.
 
 ## Notes
 
-Mention any path rewrites, upstream package aliases, or Windows build changes.
+Mention any path rewrites, package aliases, or Windows build changes.

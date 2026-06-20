@@ -1,80 +1,59 @@
 # Windows build notes
 
-The fast/default build should work on Windows without jemalloc:
+The fast/default build should work on Windows after the repair pass:
 
 ```powershell
+scripts\repair-windows.bat
+. .\.cargo\env-windows.ps1
 cargo check
 ```
 
-The full upstream parity gate is intentionally huge:
+The full all-targets compatibility gate is intentionally huge:
 
 ```powershell
-cargo check --workspace --all-targets
+cargo xtask check-full
 ```
 
-If Cargo tries to build `tikv-jemalloc-sys` on `x86_64-pc-windows-gnu`, run:
+## What the Windows repair does
+
+`repair-windows.bat` consolidates the old one-off fixes:
+
+- configures MSYS2/MinGW64 `libclang.dll` for bindgen
+- removes `tikv-jemalloc-*` from the Windows dependency graph
+- keeps RocksDB jemalloc Linux-only
+- force-includes `<cstdint>` for RocksDB on Windows GNU
+- pins the Move `uint` dependency where needed
+
+## If jemalloc appears again
 
 ```powershell
-scripts\repair-windows-jemalloc.bat
-cargo clean -p tikv-jemalloc-sys
-cargo clean -p tikv-jemallocator
-cargo clean -p tikv-jemalloc-ctl
-cargo check
-```
-
-If it still appears, identify the exact dependency path:
-
-```powershell
-scripts\find-jemalloc-dependents.bat
-```
-
-`tikv-jemalloc-*` is a Linux allocator/profiling optimization in this cleaned reference repo. It is not required for Windows correctness.
-
-## v9: RocksDB jemalloc on Windows GNU
-
-If `cargo tree -i tikv-jemalloc-sys --target x86_64-pc-windows-gnu` shows:
-
-```text
-tikv-jemalloc-sys
-`-- librocksdb-sys
-    `-- rocksdb
-        `-- typed-store
-```
-
-then the problem is RocksDB's `features = ["jemalloc"]`, not a direct `tikv-jemalloc-*` dependency. Run:
-
-```powershell
-scripts\repair-windows-jemalloc.bat
+cargo tree -i tikv-jemalloc-sys --target x86_64-pc-windows-gnu
+scripts\repair-windows.bat
 cargo clean -p librocksdb-sys
 cargo clean -p rocksdb
 cargo clean -p tikv-jemalloc-sys
 cargo check
 ```
 
-The repair retargets RocksDB's jemalloc feature to Linux only while keeping the normal non-jemalloc RocksDB dependency available on Windows.
+## If bindgen cannot find libclang
 
-## MSYS2 libclang for bindgen
-
-`librocksdb-sys` uses `bindgen`, and `bindgen` needs `libclang.dll`. On Windows GNU, make sure the MSYS2 mingw64 bin directory is visible to the build process.
-
-One-time repair/config check:
+Make sure MSYS2 has the mingw64 clang/libclang packages and that this file exists:
 
 ```powershell
-scripts\repair-windows-bindgen-libclang.bat
+Test-Path C:\msys64\mingw64\bin\libclang.dll
 ```
 
-For direct `cargo` commands in the current PowerShell session:
+Then run:
 
 ```powershell
+scripts\repair-windows.bat
 . .\.cargo\env-windows.ps1
 cargo clean -p librocksdb-sys
 cargo check
 ```
 
-Or use the wrapper for a single check:
+For a single wrapped check:
 
 ```powershell
-scripts\check-windows.bat
+scripts\check.bat windows
 ```
-
-If `libclang.dll` is missing, install the MSYS2 mingw64 clang/libclang packages, then rerun the repair script.

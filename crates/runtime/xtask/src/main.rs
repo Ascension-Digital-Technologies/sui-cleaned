@@ -54,35 +54,36 @@ const ALLOWED_ROOT_ENTRIES: &[&str] = &[
     ".cargo",
     ".editorconfig",
     ".git",
+    ".github",
     ".gitignore",
     "Cargo.lock",
     "Cargo.toml",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
     "LICENSE",
     "Makefile",
     "NOTICE",
     "README.md",
+    "SECURITY.md",
     "bench",
     "clippy.toml",
     "crates",
     "docs",
-    "reports",
     "rust-toolchain.toml",
     "rustfmt.toml",
     "scripts",
     "tests",
     "tools",
-    "xtask",
 ];
 
 const REQUIRED_DOCS: &[&str] = &[
     "docs/build.md",
     "docs/build_modes.md",
     "docs/domain_commands.md",
-    "docs/repo_cleanup.md",
     "docs/repo_hygiene.md",
     "docs/root_layout.md",
     "docs/script_inventory.md",
-    "docs/upstream_workspace.md",
+    "docs/embedded_sources.md",
     "docs/windows_build.md",
     "docs/workspace_tiers.md",
     "docs/xtask.md",
@@ -123,9 +124,7 @@ fn run() -> io::Result<u8> {
         "check-root" | "root" => check_root_cmd(),
         "check-layout" | "layout" => check_layout_cmd(),
         "check-domain" | "domain" => check_domain(&rest),
-        "sync" | "sync-upstream" => sync_upstream(&rest),
         "repair" | "repair-windows" => repair_windows(),
-        "repair-upstream" => repair_upstream(),
         "metadata" | "meta" => cargo(&["metadata", "--format-version", "1", "--no-deps"]),
         "check-fast" | "fast" => cargo(&["check"]),
         "check-core" | "core" => cargo_packages(CORE_PACKAGES, false),
@@ -161,9 +160,7 @@ Repo hygiene:
   check-layout                   verify crates/ domains and promoted bench/tests/tools layout
 
 Setup / repair:
-  sync <path>                    sync support crates from a local Sui checkout
   repair-windows                 apply Windows GNU repair passes
-  repair-upstream                repair synced upstream path/workspace issues after sync
 
 Build tiers:
   check-fast                     cargo check; default members only
@@ -226,53 +223,9 @@ where
     Ok(status.code().unwrap_or(1) as u8)
 }
 
-fn sync_upstream(args: &[String]) -> io::Result<u8> {
-    if args.is_empty() {
-        eprintln!("usage: cargo xtask sync <path-to-sui-checkout>");
-        return Ok(2);
-    }
-    let root = repo_root()?;
-    let src = &args[0];
-    if cfg!(windows) {
-        run_cmd("cmd", ["/C", &root.join("scripts").join("fetch-upstream-deps.bat").display().to_string(), src])
-    } else {
-        run_cmd(root.join("scripts").join("fetch-upstream-deps.sh"), [src])
-    }
-}
-
 fn repair_windows() -> io::Result<u8> {
     let root = repo_root()?;
-    let mut code = 0u8;
-    for name in [
-        "repair-windows-bindgen-libclang",
-        "repair-windows-jemalloc",
-        "repair-windows-rocksdb-cstdint",
-        "repair-move-uint-version",
-    ] {
-        let c = run_script(&root, name)?;
-        if c != 0 {
-            code = c;
-            break;
-        }
-    }
-    Ok(code)
-}
-
-fn repair_upstream() -> io::Result<u8> {
-    let root = repo_root()?;
-    let mut code = 0u8;
-    for name in [
-        "repair-upstream-workspace",
-        "repair-move-upstream-paths",
-        "repair-sui-execution-paths",
-    ] {
-        let c = run_script(&root, name)?;
-        if c != 0 {
-            code = c;
-            break;
-        }
-    }
-    Ok(code)
+    run_script(&root, "repair-windows")
 }
 
 fn run_script(root: &Path, stem: &str) -> io::Result<u8> {
@@ -317,22 +270,13 @@ fn print_tiers() {
 
 fn scripts() -> io::Result<u8> {
     println!("script inventory\n");
-    println!("  check");
-    println!("    check.bat/.sh, check-fast.bat/.sh, check-workspace.bat/.sh, check-full.bat/.sh");
-    println!("    check-windows.bat\n");
-    println!("  sync");
-    println!("    fetch-upstream-deps.bat/.sh\n");
-    println!("  repair");
-    println!("    repair-windows.bat/.sh");
-    println!("    repair-upstream-workspace, repair-move-upstream-paths, repair-sui-execution-paths");
-    println!("    repair-upstream-direct-paths.py, repair-move-uint-version.py");
-    println!("    repair-windows-bindgen-libclang.*, repair-windows-jemalloc.py");
-    println!("    repair-windows-rocksdb-cstdint.*\n");
-    println!("  audit");
-    println!("    audit-workspace-inheritance.py, audit-direct-paths.py");
-    println!("    find-jemalloc-dependents, find-rocksdb-jemalloc, status\n");
-    println!("  utility");
-    println!("    fmt, package-map.py");
+    println!("  public entrypoints");
+    println!("    check.bat/.sh             build tier wrapper: fast, core, workspace, compat, full");
+    println!("    fmt.bat/.sh               cargo xtask fmt");
+    println!("    status.bat/.sh            cargo xtask status");
+    println!("    repair-windows.bat/.sh    apply Windows GNU native-build fixes\n");
+    println!("  private helpers");
+    println!("    scripts/lib/              Python and PowerShell implementation helpers\n");
     Ok(0)
 }
 
@@ -346,9 +290,8 @@ fn check_root_cmd() -> io::Result<u8> {
     check(&mut failed, "root tests directory", root.join("tests").exists());
     check(&mut failed, "root tools directory", root.join("tools").exists());
     check(&mut failed, "bench/tests/tools outside crates", !root.join("crates/bench").exists() && !root.join("crates/tests").exists() && !root.join("crates/tools").exists());
-    check(&mut failed, "no vendor/upstream/manifests root", !root.join("vendor").exists() && !root.join("upstream").exists() && !root.join("manifests").exists());
+    check(&mut failed, "no vendor/upstream/manifests/reports root", !root.join("vendor").exists() && !root.join("upstream").exists() && !root.join("manifests").exists() && !root.join("reports").exists());
     check(&mut failed, "legacy manifests not in root", !root.join("_manifest").exists());
-    check(&mut failed, "legacy manifests archived", root.join("reports/legacy-transform-manifests").exists());
     if failed { Ok(1) } else { Ok(0) }
 }
 
@@ -397,7 +340,7 @@ fn layout_ok(root: &Path, failed: &mut bool) -> io::Result<bool> {
         ok &= absent_from_crates;
     }
 
-    for path in ["vendor", "upstream", "manifests", "crates/runtime/sui", "crates/execution/external-crates"] {
+    for path in ["vendor", "upstream", "manifests", "reports", "xtask", "crates/runtime/sui", "crates/execution/external-crates"] {
         let absent = !root.join(path).exists();
         check(failed, &format!("{path} absent"), absent);
         ok &= absent;
@@ -546,8 +489,9 @@ fn status(strict: bool) -> io::Result<u8> {
     println!("repo: {}\n", root.display());
 
     check(&mut failed, "root Cargo.toml", root.join("Cargo.toml").exists());
-    check(&mut failed, "xtask member", file_contains(root.join("Cargo.toml"), "\"xtask\"")?);
+    check(&mut failed, "xtask member", file_contains(root.join("Cargo.toml"), "crates/runtime/xtask")?);
     check(&mut failed, "cargo xtask alias", file_contains(root.join(".cargo/config.toml"), "xtask =")?);
+    check(&mut failed, "xtask under crates/runtime", root.join("crates/runtime/xtask/Cargo.toml").exists());
     check(&mut failed, "default members configured", file_contains(root.join("Cargo.toml"), "default-members")?);
     check(&mut failed, "root bench directory", root.join("bench").exists());
     check(&mut failed, "root tests directory", root.join("tests").exists());
@@ -557,22 +501,21 @@ fn status(strict: bool) -> io::Result<u8> {
     check(&mut failed, "domain layout", domain_layout_ok);
     check(&mut failed, "Windows RocksDB cstdint flag", file_contains(root.join(".cargo/config.toml"), "CXXFLAGS_x86_64_pc_windows_gnu")?);
     check(&mut failed, "Windows bindgen libclang path", file_contains(root.join(".cargo/config.toml"), "LIBCLANG_PATH")?);
-    check(&mut failed, "Windows libclang repair script", root.join("scripts/repair-windows-bindgen-libclang.bat").exists());
+    check(&mut failed, "Windows libclang helper", root.join("scripts/lib/repair-windows-bindgen-libclang.ps1").exists());
     check(&mut failed, "single repair-windows wrapper", root.join("scripts/repair-windows.bat").exists() && root.join("scripts/repair-windows.sh").exists());
     check(&mut failed, "typed-store Windows-safe RocksDB", typed_store_windows_safe(&root)?);
-    check(&mut failed, "upstream sync script", root.join("scripts/fetch-upstream-deps.bat").exists() && root.join("scripts/fetch-upstream-deps.sh").exists());
-    check(&mut failed, "workspace inheritance audit", root.join("scripts/audit-workspace-inheritance.py").exists());
-    check(&mut failed, "direct path audit", root.join("scripts/audit-direct-paths.py").exists());
+    check(&mut failed, "workspace inheritance audit", root.join("scripts/lib/audit-workspace-inheritance.py").exists());
+    check(&mut failed, "direct path audit", root.join("scripts/lib/audit-direct-paths.py").exists());
     let root_clutter = root_clutter_ok(&root, &mut failed)?;
     check(&mut failed, "root clutter", root_clutter);
-    check(&mut failed, "legacy manifests archived", root.join("reports/legacy-transform-manifests").exists());
+    check(&mut failed, "no generated reports root", !root.join("reports").exists());
     check(&mut failed, "legacy manifests absent from root", !root.join("_manifest").exists());
 
     let move_core = root.join("crates/execution/move-vm/move/crates/move-core-types/Cargo.toml");
     if move_core.exists() {
         check(&mut failed, "Move uint pin", file_contains(move_core, "uint = \"0.9.5\"")?);
     } else {
-        println!("  skip  Move uint pin: move-vm not synced yet");
+        println!("  skip  Move uint pin: move-vm source missing");
     }
 
     if strict {

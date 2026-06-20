@@ -1,4 +1,3 @@
-\
 #!/usr/bin/env python3
 """Repair Sui/Move workspace dependency mismatch after extraction.
 
@@ -18,7 +17,7 @@ from __future__ import annotations
 from pathlib import Path
 import sys
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 CANDIDATES = [
     ROOT / "crates/execution/move-vm/move/crates/move-core-types/Cargo.toml",
 ]
@@ -44,7 +43,7 @@ else:
     if present:
         print("Move uint dependency already repaired")
     else:
-        print("Move move-vm not present yet; run scripts/fetch-upstream-deps first")
+        print("Move move-vm not present yet; verify crates/execution/move-vm is present")
 
 # Success even when move-vm are not fetched yet; fetch scripts call this after copying.
 sys.exit(0)

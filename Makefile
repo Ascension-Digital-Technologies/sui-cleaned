@@ -1,6 +1,6 @@
 SHELL := /bin/sh
 
-.PHONY: status audit tiers scripts check-root sync repair-windows metadata check check-fast check-core check-workspace check-sui-compat check-full fmt clippy clippy-workspace clippy-full fetch-upstream-deps package-map repair-move-uint
+.PHONY: status audit tiers scripts check-root check-layout repair repair-windows metadata check check-fast check-core check-workspace check-sui-compat check-full fmt clippy clippy-workspace clippy-full package-map
 
 status:
 	cargo xtask status
@@ -17,14 +17,17 @@ scripts:
 check-root:
 	cargo xtask check-root
 
-sync:
-	cargo xtask sync $(SUI)
+check-layout:
+	cargo xtask check-layout
+
+repair: repair-windows
 
 repair-windows:
 	cargo xtask repair-windows
 
 metadata:
-	cargo xtask metadata > reports/cargo-metadata.json
+	mkdir -p target/xtask-output
+	cargo xtask metadata > target/xtask-output/cargo-metadata.json
 
 check: check-fast
 
@@ -54,11 +57,5 @@ clippy-workspace:
 clippy-full:
 	cargo xtask clippy-full
 
-fetch-upstream-deps:
-	scripts/fetch-upstream-deps.sh $(SUI)
-
-repair-move-uint:
-	python3 scripts/repair-move-uint-version.py
-
 package-map:
-	python3 scripts/package-map.py
+	python3 scripts/lib/package-map.py

@@ -37,4 +37,4 @@ body:
     id: context
     attributes:
       label: Additional context
-      description: Mention local changes, upstream sync source, or repair scripts that were run.
+      description: Mention local changes, build scripts, or repair commands that were run.

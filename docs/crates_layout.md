@@ -18,4 +18,4 @@ No other top-level folders should be added under `crates/`.
 
 Root-level `bench/`, `tests/`, and `tools/` are intentionally outside `crates/`.
 
-Sync-managed upstream Sui support crates live under `domain folders under crates//` and are updated by `scripts/fetch-upstream-deps.*`.
+Embedded Sui-compatible crates live directly under the appropriate `crates/<domain>/` folders.

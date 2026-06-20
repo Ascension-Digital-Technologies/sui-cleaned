@@ -11,12 +11,6 @@ Thumbs.db
 *.swp
 *.swo
 
-# Local upstream sync scratch
-.upstream-tmp/
-# Keep the layout visible; ignore only the temporary clone.
-crates/execution/external-crates/
-
-# Generated reports
-/reports/
+# Generated local output lives under target/.
 *.profraw
 *.profdata

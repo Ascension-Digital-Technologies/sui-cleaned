@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-$root = Resolve-Path (Join-Path $PSScriptRoot "..")
+$root = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 $config = Join-Path $root ".cargo\config.toml"
 $msysRoot = $env:MSYS2_ROOT
 if ([string]::IsNullOrWhiteSpace($msysRoot)) {

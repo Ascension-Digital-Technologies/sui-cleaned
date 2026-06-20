@@ -1,2 +1,3 @@
 @echo off
-cargo fmt --all
+cd /d "%~dp0\.."
+cargo xtask fmt

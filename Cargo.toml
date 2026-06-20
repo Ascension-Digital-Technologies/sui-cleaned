@@ -1,10 +1,10 @@
 # Clean Sui Rust reference workspace.
-# Members are organized by repo role: crates/, bench/, tests/, tools/, xtask/.
+# Members are organized by repo role: crates/, bench/, tests/, and tools/.
 
 [workspace]
 resolver = "2"
 members = [
-    "xtask",
+    "crates/runtime/xtask",
     "crates/api/json-rpc",
     "crates/api/json-rpc-api",
     "crates/api/light-client",
@@ -159,9 +159,8 @@ default-members = [
     "crates/network/mysten-network",
 ]
 
-# Note: Sui-derived crates are distributed into domain folders after scripts/fetch-upstream-deps.* runs,
-# because copied upstream compatibility crates use Cargo workspace inheritance.
-# Generated transform artifacts live under reports/legacy-transform-manifests.
+# Note: Sui-derived crates are embedded directly into the cleaned domain layout.
+# Some package names intentionally remain upstream-compatible for Cargo path dependencies.
 
 [workspace.package]
 # This version string will be inherited by sui-core, sui-faucet, sui-node, sui-tools, sui-sdk, sui-move-build, and sui crates.

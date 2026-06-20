@@ -1,43 +1,41 @@
 # Build Guide
 
+This repository includes the Sui compatibility crates and Move VM dependency tree directly in the cleaned domain layout. A normal build does **not** require downloading upstream files.
+
 ## 1. Install Rust
 
-The repository preserves upstream's `rust-toolchain.toml`, currently pinned to Rust 1.92.
+The repository preserves upstream's `rust-toolchain.toml`. Rustup will install the pinned toolchain automatically when needed.
 
-## 2. Populate upstream support crates
-
-```bash
-scripts/fetch-upstream-deps.sh
-```
-
-Or use a local Sui source tree:
+## 2. Check the layout
 
 ```bash
-scripts/fetch-upstream-deps.sh /path/to/sui
+cargo xtask check-layout
+cargo xtask status
 ```
 
-## 3. Validate metadata
+## 3. Build/check
+
+Fast daily check:
 
 ```bash
-cargo metadata --format-version 1 --no-deps
+cargo check
+# or
+scripts/check.sh fast
 ```
 
-## 4. Build/check
+Broader workspace check:
 
 ```bash
-cargo check --workspace --all-targets
+cargo xtask check-workspace
+# or
+scripts/check.sh workspace
 ```
 
-For faster iteration, check one package:
+Full all-targets parity gate:
 
 ```bash
-cargo check -p consensus-core
-cargo check -p sui-types
-cargo check -p sui-core
+cargo xtask check-full
+# or
+scripts/check.sh full
 ```
 
-## Known limitation
-
-This cleaned workspace is source-complete for the extracted Sui domains, but it intentionally
-does not inline every upstream support/indexer/tool crate. Run the upstream sync step before
-expecting full workspace checks to resolve all path dependencies.

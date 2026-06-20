@@ -2,13 +2,12 @@
 
 `sui-clean` uses a small dependency-free Rust `xtask` crate for repeatable repository operations.
 It does not replace Cargo. It gives the repo one clean command surface for common checks,
-upstream sync, Windows repairs, and status reporting.
+Windows repairs, layout checks, build tiers, and status reporting.
 
 ## Common commands
 
 ```powershell
 cargo xtask status
-cargo xtask sync C:\Users\mario\Desktop\yoint\sui-main
 cargo xtask repair-windows
 cargo xtask check-fast
 cargo xtask check-core
@@ -23,9 +22,9 @@ cargo xtask check-full
 - `check-core` checks the first-party core package set explicitly.
 - `check-workspace` checks every active workspace package without tests, benches, or examples.
 - `check-sui-compat` checks the main protocol/execution compatibility packages.
-- `check-full` runs the full upstream parity gate with `--workspace --all-targets`.
+- `check-full` runs the full all-targets compatibility gate with `--workspace --all-targets`.
 
-Use `check-full` deliberately. It pulls in upstream Sui/Move tests, fuzzers, indexers,
+Use `check-full` deliberately. It pulls in Sui/Move tests, fuzzers, indexers,
 bridge, faucet, Rosetta, analyzer, simulator, and benchmark targets.
 
 

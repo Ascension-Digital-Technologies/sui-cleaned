@@ -1,3 +1,4 @@
-#!/usr/bin/env bash
-set -euo pipefail
-cargo fmt --all
+#!/usr/bin/env sh
+set -eu
+cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+cargo xtask fmt

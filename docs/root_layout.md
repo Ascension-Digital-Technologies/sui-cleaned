@@ -8,13 +8,11 @@ sui-clean/
   bench/      benchmark and load-generation crates
   tests/      integration, transactional, fuzz, and fixture crates
   tools/      operational and developer tool crates
-  xtask/      Rust repo automation
-  scripts/    thin wrappers and sync/repair helpers
+  scripts/    thin wrapper scripts
   docs/       human-maintained documentation
-  reports/    generated validation and cleanup reports
 ```
 
-There is no root `vendor/`, `upstream/`, or `manifests/` folder.
+There is no root `vendor/`, `upstream/`, `manifests/`, `reports/`, or root `xtask/` folder. Repository automation lives in `crates/runtime/xtask/`.
 
 Embedded upstream Sui and Move code is placed into the same cleaned domain layout as the rest of the workspace. The canonical Move location is:
 

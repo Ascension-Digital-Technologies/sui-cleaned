@@ -4,7 +4,7 @@ from pathlib import Path
 import re
 import sys
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 SKIP_MANIFESTS = {
     ROOT / 'crates/execution/move-vm/move/Cargo.toml',
     ROOT / 'crates/execution/move-vm/move/tooling/tree-sitter/Cargo.toml',
@@ -35,8 +35,8 @@ for manifest in manifest_paths:
         if not (target / 'Cargo.toml').exists() and not target.exists():
             missing.append(f'{manifest.relative_to(ROOT)} -> {rel}')
 
-out = ROOT / 'reports' / 'direct-paths-audit.txt'
-out.parent.mkdir(exist_ok=True)
+out = ROOT / 'target' / 'xtask-output' / 'direct-paths-audit.txt'
+out.parent.mkdir(parents=True, exist_ok=True)
 if missing:
     out.write_text('Missing local Cargo path dependencies:\n' + '\n'.join(missing) + '\n')
     print(f'error: missing local Cargo path dependencies: {len(missing)}')

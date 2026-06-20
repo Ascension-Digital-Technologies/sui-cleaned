@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-$Root = Resolve-Path (Join-Path $PSScriptRoot "..")
+$Root = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 $CargoDir = Join-Path $Root ".cargo"
 $Config = Join-Path $CargoDir "config.toml"
 

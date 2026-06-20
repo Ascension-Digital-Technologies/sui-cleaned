@@ -1,32 +1,33 @@
 # Scripts
 
-Scripts are thin wrappers around repo setup, repair, and audit tasks. Prefer `cargo xtask ...` for day-to-day use.
+`scripts/` contains a small public wrapper surface. Most repository automation lives in `cargo xtask`; these scripts are convenience entrypoints for Windows and Unix shells.
 
-Important scripts:
+## Public entrypoints
 
-```text
-fetch-upstream-deps.bat/.sh       sync upstream Sui support into crates/
-repair-upstream-direct-paths.py   fix direct paths in domain folders under crates//*
-repair-upstream-workspace.*       audit/repair synced upstream workspace paths
-repair-move-upstream-paths.*      repair Move/external-crate direct paths
-repair-windows-jemalloc.py        remove jemalloc from Windows dependency graph
-repair-windows-rocksdb-cstdint.*  add Windows GNU RocksDB cstdint workaround
-audit-workspace-inheritance.py    ensure synced upstream crates are workspace members
-audit-direct-paths.py             ensure direct path dependencies exist
-```
-## Windows GNU helpers
+| Script | Purpose |
+|---|---|
+| `check.bat` / `check.sh` | Run build tiers: `fast`, `core`, `workspace`, `compat`, `full`, or Windows wrapper. |
+| `fmt.bat` / `fmt.sh` | Run formatting through `cargo xtask fmt`. |
+| `status.bat` / `status.sh` | Run `cargo xtask status`. |
+| `repair-windows.bat` / `repair-windows.sh` | Apply Windows GNU native-build fixes. |
 
-Use these when native crates such as `librocksdb-sys` need MSYS2/MinGW tools:
+## Examples
+
+Windows:
 
 ```powershell
-scripts\repair-windows-bindgen-libclang.bat
-. .\.cargo\env-windows.ps1
-cargo clean -p librocksdb-sys
-cargo check
+scripts\check.bat fast
+scripts\repair-windows.bat
+scripts\status.bat
 ```
 
-Or run the wrapper, which injects MSYS2 `mingw64\bin` and `usr\bin` into `PATH` for that command:
+Linux/macOS:
 
-```powershell
-scripts\check-windows.bat
+```bash
+scripts/check.sh fast
+scripts/status.sh
 ```
+
+## Internals
+
+Implementation helpers live in `scripts/lib/`. They are not public workflow commands.

@@ -1,6 +1,0 @@
-This directory is populated by:
-
-  cargo xtask sync <path-to-sui-checkout>
-
-No upstream checkout was bundled into this file. Run the sync command after extracting
-if `vendor/sui/crates/*` or `crates/execution/move-vm/*` are missing.

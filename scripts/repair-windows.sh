@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 set -eu
-SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-"$SCRIPT_DIR/repair-windows-bindgen-libclang.sh"
-"$SCRIPT_DIR/repair-windows-jemalloc.sh"
-"$SCRIPT_DIR/repair-windows-rocksdb-cstdint.sh"
-"$SCRIPT_DIR/repair-move-uint-version.sh"
-echo "Windows repair passes complete."
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$ROOT"
+python3 "$ROOT/scripts/lib/repair-windows-jemalloc.py"
+python3 "$ROOT/scripts/lib/repair-move-uint-version.py"
+echo "Windows repair passes complete. libclang/RocksDB PowerShell fixes are Windows-only."

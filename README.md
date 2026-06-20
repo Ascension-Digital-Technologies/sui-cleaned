@@ -1,21 +1,49 @@
 # Sui Clean
 
-**Sui Clean** is an unofficial, cleaned-up Rust workspace for Sui.
+**Sui Clean** is an unofficial, cleaned-up Rust workspace for [Sui](https://github.com/MystenLabs/sui).
 
-The goal of this repository is simple: keep the Sui codebase recognizable and compatible while making the repository easier to navigate, build, audit, and maintain. Instead of mirroring the original monorepo shape, this repo organizes Rust crates by domain.
+This repository keeps the Sui codebase recognizable and Cargo-compatible while presenting it in a cleaner, domain-oriented layout. It is meant to be easier to browse, build, audit, and maintain than a large historical monorepo tree.
 
-> This project is not an official Mysten Labs or Sui Foundation repository. It is a cleaned-up repository layout derived from Sui-compatible source code and keeps upstream license attribution intact.
+> This project is not an official Mysten Labs or Sui Foundation repository. It is an unofficial cleaned-up layout derived from Sui-compatible source code. Upstream package identity, license notices, and attribution are preserved where needed.
 
-## Why this exists
+## Official upstream
 
-Large blockchain repositories tend to grow around teams, history, generated code, experiments, and release machinery. That can make the source tree difficult to understand. Sui Clean keeps the useful Rust code, but reshapes the workspace around clear ownership boundaries:
+The official Sui repository is maintained by Mysten Labs:
+
+- Official Sui repository: <https://github.com/MystenLabs/sui>
+- Sui website: <https://sui.io>
+- Sui documentation: <https://docs.sui.io>
+
+## What is Sui?
+
+Sui is a smart contract platform built around high throughput, low latency, and an asset-oriented programming model powered by the Move programming language. The official Sui README describes Sui as a next-generation smart contract platform written in Rust, with Move smart contracts used to define assets and the rules for creating, transferring, and mutating them.
+
+Sui is designed around a permissionless set of authorities, similar in role to validators or miners in other blockchain systems. Its architecture is built to process many common transactions in parallel, making better use of hardware resources. For simple common use cases such as payments and asset transfers, Sui can use lower-latency primitives instead of forcing every transaction through the same consensus path.
+
+At a high level, Sui focuses on:
+
+- high throughput and low latency;
+- an asset-oriented object model;
+- Move-based smart contracts;
+- rich and composable on-chain assets;
+- improved user experience for web3 applications;
+- parallel processing for many independent transactions;
+- a native SUI token used for gas and delegated stake.
+
+This repository does not change Sui's protocol goals. It only reorganizes the Rust workspace so the source tree is easier to understand.
+
+## Why this cleanup exists
+
+Large blockchain repositories tend to grow around teams, release machinery, generated code, experiments, and historical layout decisions. That can make the source tree difficult to understand even when the code itself is valuable.
+
+Sui Clean keeps the useful Rust code and reshapes the workspace around clear ownership boundaries:
 
 ```text
 crates/
   api/        RPC, SDK, indexer-facing, faucet, Rosetta, ingestion, and service APIs
   crypto/     keys, signatures, TLS, shared crypto helpers
   config/     protocol, consensus, defaults, and config macros
-  runtime/    node, CLI, simulator, telemetry, metrics, service glue, common runtime utilities
+  runtime/    node, CLI, simulator, telemetry, metrics, service glue, common utilities, xtask
   consensus/  consensus core and consensus types
   execution/  authority core, framework, Move build/CLI, package resolution, Sui execution, Move VM
   network/    network clients, authority aggregation, HTTP, proxy, networking primitives
@@ -23,29 +51,27 @@ crates/
   storage/    stores, typed-store, snapshots, indexer schemas/stores, SQL helpers
 ```
 
-Root-level supporting crates are intentionally separated:
+Root-level supporting crates stay outside `crates/`:
 
 ```text
 bench/      benchmark and load-generation crates
 tests/      integration, transactional, fuzz, and fixture crates
 tools/      operational and developer tool crates
-xtask/      Rust repository automation
-scripts/    thin wrapper scripts for Windows/Linux workflows
+scripts/    small wrapper scripts for common workflows
 docs/       human-maintained documentation
-reports/    generated cleanup and validation reports
 ```
 
-There is no root `vendor/`, `upstream/`, or `manifests/` folder. Upstream Sui and Move code that this workspace needs is embedded directly into the domain layout.
+There is no root `vendor/`, `upstream/`, `manifests/`, `reports/`, or root-level `xtask/` folder. The Sui and Move sources needed by this workspace are embedded directly into the cleaned domain layout.
 
 ## Current status
 
-The current GitHub-ready baseline has been validated locally on Windows with:
+The current baseline has been validated locally on Windows with:
 
 ```powershell
 cargo check
 ```
 
-The default check focuses on the active core workspace. Full upstream parity checks are intentionally separate because they are much larger.
+The default check focuses on the active workspace. Full all-target checks are intentionally separate because they are much larger.
 
 ## Quick start
 
@@ -55,17 +81,9 @@ The default check focuses on the active core workspace. Full upstream parity che
 git clone <your-repo-url> sui-clean
 cd sui-clean
 
-scripts\repair-windows.bat
-cargo xtask check-layout
-cargo check
-```
-
-If RocksDB/bindgen reports a missing `libclang.dll`, run:
-
-```powershell
-scripts\repair-windows-bindgen-libclang.bat
+scriptsepair-windows.bat
 . .\.cargo\env-windows.ps1
-cargo clean -p librocksdb-sys
+cargo xtask check-layout
 cargo check
 ```
 
@@ -104,6 +122,8 @@ api, crypto, config, runtime, consensus, execution, network, protocol, storage
 
 `bench/`, `tests/`, and `tools/` stay at the repository root. They should not be placed under `crates/`.
 
+`crates/runtime/xtask/` contains the repository automation crate used by `cargo xtask`.
+
 `crates/execution/move-vm/` is the canonical location for embedded Move VM and Move execution sources.
 
 ## Documentation
@@ -114,22 +134,30 @@ Start here:
 - [`docs/root_layout.md`](docs/root_layout.md) — root-level structure
 - [`docs/crates_domains.md`](docs/crates_domains.md) — domain layout rules
 - [`docs/domain_commands.md`](docs/domain_commands.md) — `xtask` domain commands
+- [`docs/embedded_sources.md`](docs/embedded_sources.md) — embedded Sui/Move source placement
 - [`docs/windows_build.md`](docs/windows_build.md) — Windows build notes
 - [`docs/github.md`](docs/github.md) — GitHub workflow and contribution expectations
 - [`docs/license_attribution.md`](docs/license_attribution.md) — upstream license/attribution notes
 
-## Upstream relationship
+## Relationship to upstream Sui
 
-Sui Clean is designed as a cleaned-up, domain-organized Sui workspace. It preserves upstream package identities where needed for Cargo compatibility, but folder names and domain placement are intentionally cleaner than the original source layout.
+Sui Clean is a cleaned-up, domain-organized Sui workspace. It preserves upstream package names where needed for Cargo compatibility, but folder names and domain placement are intentionally clearer than the original source layout.
 
-When syncing from a newer Sui checkout, use the sync/repair scripts and then validate with:
+This repository is self-contained. It does not include sync scripts or automatic upstream refresh tooling. Future source refreshes should be handled deliberately in a separate maintenance branch and reviewed like a normal code import.
 
-```powershell
-cargo xtask check-layout
-cargo xtask status
-cargo check
+## Scripts
+
+The top-level `scripts/` folder is intentionally small:
+
+```text
+check.*           build tier wrapper
+fmt.*             cargo fmt wrapper
+status.*          cargo xtask status wrapper
+repair-windows.* Windows GNU native-build repair wrapper
 ```
 
-## License
+Implementation helpers live under `scripts/lib/`.
+
+## License and attribution
 
 This repository keeps Apache-2.0 licensing and upstream attribution. See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`docs/license_attribution.md`](docs/license_attribution.md).

@@ -1,19 +1,15 @@
 # Project identity
 
-Sui Clean is an unofficial cleaned-up Rust workspace for Sui.
+Sui Clean is an unofficial cleaned-up Rust workspace for Sui. The official Sui repository is maintained at <https://github.com/MystenLabs/sui>.
 
-It exists to make a Sui-compatible Rust codebase easier to understand and maintain by reorganizing crates into explicit domains:
-
-```text
-api, crypto, config, runtime, consensus, execution, network, protocol, storage
-```
+The official Sui project describes Sui as a smart contract platform focused on high throughput, low latency, and an asset-oriented programming model powered by Move. This repository keeps that Sui-compatible Rust/Move source material but reorganizes it into clearer source domains.
 
 ## What this repo is
 
 - A cleaned-up Sui repository layout.
 - A Rust workspace organized by source ownership and runtime role.
 - A local development and audit-friendly reference tree.
-- A repo with embedded upstream Sui/Move code placed into domain folders.
+- A self-contained repo with embedded Sui and Move source code placed into domain folders.
 
 ## What this repo is not
 
@@ -21,6 +17,12 @@ api, crypto, config, runtime, consensus, execution, network, protocol, storage
 - It is not an official Sui Foundation repository.
 - It is not a new blockchain or fork brand by itself.
 - It is not intended to hide upstream package identity where Cargo compatibility requires it.
+
+## Domain layout
+
+```text
+api, crypto, config, runtime, consensus, execution, network, protocol, storage
+```
 
 ## Naming policy
 

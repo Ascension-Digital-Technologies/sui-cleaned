@@ -1,11 +1,13 @@
 # Repo hygiene
 
-Keep the root focused on source, automation, docs, and reports. Do not add generated scratch directories to the root.
+Keep the root focused on source, scripts, and human-maintained documentation. Do not add generated scratch directories or report folders to the root.
 
 Allowed major roots:
 
 ```text
-crates/ bench/ tests/ tools/ xtask/ scripts/ docs/ reports/
+crates/ bench/ tests/ tools/ scripts/ docs/
 ```
 
-Upstream Sui compatibility crates are sync-managed under `crates/runtime/`. Local clone scratch space belongs in `.upstream-tmp/`, which is ignored.
+Repository automation lives under `crates/runtime/xtask/`. Generated metadata or audits should be written under `target/xtask-output/`, not a root `reports/` directory.
+
+Embedded Sui-compatible crates are kept directly in the cleaned domain layout.

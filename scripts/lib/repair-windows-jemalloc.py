@@ -17,7 +17,7 @@ from __future__ import annotations
 from pathlib import Path
 import re
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 PLAIN_KINDS = {"dependencies", "dev-dependencies", "build-dependencies"}
 WORKSPACE_KINDS = {"workspace.dependencies"}
 LINUX_TARGET = {
@@ -136,7 +136,7 @@ for manifest in ROOT.rglob("Cargo.toml"):
         manifest.write_text(new_text, encoding="utf-8")
         changed.append(str(rel))
 
-report = ROOT / "reports" / "windows-jemalloc-repair.txt"
+report = ROOT / "target" / "xtask-output" / "windows-jemalloc-repair.txt"
 report.parent.mkdir(parents=True, exist_ok=True)
 body = []
 if changed:
