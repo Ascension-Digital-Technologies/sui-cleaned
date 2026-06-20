@@ -9,5 +9,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%\scripts\lib\repair-w
 python "%ROOT%\scripts\lib\repair-move-uint-version.py" || exit /b %ERRORLEVEL%
 
 echo Windows repair passes complete.
-echo For PowerShell builds, run: . .\.cargo\env-windows.ps1
+echo Use scripts\build.bat or scripts\check.bat so libclang/MSYS2 PATH is loaded automatically.
+echo For direct PowerShell cargo commands, run: . .\.cargo\env-windows.ps1
 exit /b 0

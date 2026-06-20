@@ -6,24 +6,35 @@
 
 | Script | Purpose |
 |---|---|
-| `check.bat` / `check.sh` | Run build tiers: `fast`, `core`, `workspace`, `compat`, `full`, or Windows wrapper. |
+| `build.bat` / `build.sh` | Build modes: `debug`, `release`, `workspace`, `full`, or `check`. Windows loads MSYS2/libclang automatically. |
+| `check.bat` / `check.sh` | Check tiers: `fast`, `core`, `workspace`, `compat`, or `full`. Windows loads MSYS2/libclang automatically. |
 | `fmt.bat` / `fmt.sh` | Run formatting through `cargo xtask fmt`. |
 | `status.bat` / `status.sh` | Run `cargo xtask status`. |
 | `repair-windows.bat` / `repair-windows.sh` | Apply Windows GNU native-build fixes. |
 
-## Examples
-
-Windows:
+## Windows examples
 
 ```powershell
+scripts\build.bat debug
+scripts\build.bat release
 scripts\check.bat fast
 scripts\repair-windows.bat
 scripts\status.bat
 ```
 
-Linux/macOS:
+For direct `cargo build` or `cargo check` commands on Windows GNU, run this once per PowerShell session first:
+
+```powershell
+. .\.cargo\env-windows.ps1
+```
+
+The wrapper scripts do this environment setup automatically.
+
+## Linux/macOS examples
 
 ```bash
+scripts/build.sh debug
+scripts/build.sh release
 scripts/check.sh fast
 scripts/status.sh
 ```

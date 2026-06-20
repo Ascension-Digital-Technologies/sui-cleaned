@@ -1,6 +1,3 @@
-# Dot-source this file before running direct Cargo commands on Windows GNU:
-#   . .\.cargo\env-windows.ps1
-# The wrapper scripts load the same environment automatically.
 $ErrorActionPreference = "Stop"
 
 if ([string]::IsNullOrWhiteSpace($env:MSYS2_ROOT)) {
@@ -30,6 +27,3 @@ $parts = $env:Path -split ';'
 if ($parts -notcontains $mingwBin) {
   $env:Path = "$mingwBin;$usrBin;$env:Path"
 }
-
-Write-Host "Windows Cargo environment loaded."
-Write-Host "LIBCLANG_PATH=$env:LIBCLANG_PATH"

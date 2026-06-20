@@ -5,6 +5,12 @@ cd /d "%~dp0\.."
 set "MODE=%~1"
 if "%MODE%"=="" set "MODE=fast"
 
+rem Windows GNU native dependencies need MSYS2 mingw64\bin on PATH so bindgen can load libclang.dll.
+call scripts\repair-windows.bat
+if errorlevel 1 exit /b %ERRORLEVEL%
+call scripts\lib\windows-env.bat
+if errorlevel 1 exit /b %ERRORLEVEL%
+
 if /I "%MODE%"=="fast" (
   cargo xtask check-fast
   exit /b %ERRORLEVEL%
@@ -26,9 +32,7 @@ if /I "%MODE%"=="full" (
   exit /b %ERRORLEVEL%
 )
 if /I "%MODE%"=="windows" (
-  call scripts\repair-windows.bat
-  if errorlevel 1 exit /b %ERRORLEVEL%
-  powershell -NoProfile -ExecutionPolicy Bypass -Command ". .\.cargo\env-windows.ps1; cargo xtask check-fast"
+  cargo xtask check-fast
   exit /b %ERRORLEVEL%
 )
 

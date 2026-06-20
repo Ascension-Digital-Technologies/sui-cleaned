@@ -1,41 +1,52 @@
-# Build Guide
+# Build guide
 
-This repository includes the Sui compatibility crates and Move VM dependency tree directly in the cleaned domain layout. A normal build does **not** require downloading upstream files.
+This repo includes thin build wrappers for common local and CI workflows.
 
-## 1. Install Rust
+## Windows GNU
 
-The repository preserves upstream's `rust-toolchain.toml`. Rustup will install the pinned toolchain automatically when needed.
+Use the wrapper scripts because native dependencies such as `librocksdb-sys` use bindgen and need MSYS2/MinGW64 `libclang.dll` and its dependent DLLs on `PATH`.
 
-## 2. Check the layout
-
-```bash
-cargo xtask check-layout
-cargo xtask status
+```powershell
+scripts\repair-windows.bat
+scripts\build.bat debug
 ```
 
-## 3. Build/check
+Build modes:
 
-Fast daily check:
+```powershell
+scripts\build.bat debug
+scripts\build.bat release
+scripts\build.bat workspace
+scripts\build.bat full
+scripts\build.bat check
+```
+
+For direct Cargo commands, load the Windows environment first:
+
+```powershell
+. .\.cargo\env-windows.ps1
+cargo build
+cargo check
+```
+
+## Linux/macOS
 
 ```bash
-cargo check
-# or
+scripts/build.sh debug
+scripts/build.sh release
 scripts/check.sh fast
 ```
 
-Broader workspace check:
+## Recommended checks before pushing
 
 ```bash
-cargo xtask check-workspace
-# or
-scripts/check.sh workspace
+cargo xtask check-layout
+scripts/check.sh fast
 ```
 
-Full all-targets parity gate:
+On Windows:
 
-```bash
-cargo xtask check-full
-# or
-scripts/check.sh full
+```powershell
+cargo xtask check-layout
+scripts\check.bat fast
 ```
-

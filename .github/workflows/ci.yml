@@ -50,6 +50,4 @@ jobs:
         run: scripts\repair-windows.bat
       - name: Cargo check
         shell: pwsh
-        run: |
-          . .\.cargo\env-windows.ps1
-          cargo check --target x86_64-pc-windows-gnu
+        run: scripts\check.bat fast

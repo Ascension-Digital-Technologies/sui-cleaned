@@ -23,13 +23,17 @@ For release stabilization, run `cargo check` locally and commit any intentional 
 ```bash
 cargo xtask check-layout
 cargo xtask status
-cargo check
+scripts/check.sh fast
 ```
 
 On Windows GNU, run the repair first:
 
 ```powershell
 scripts\repair-windows.bat
-. .\.cargo\env-windows.ps1
-cargo check
+scripts\check.bat fast
 ```
+
+
+## Windows native environment
+
+Windows jobs should either use `scripts\build.bat` / `scripts\check.bat` or dot-source `.cargo\env-windows.ps1` before direct Cargo commands. This ensures MSYS2 `mingw64\bin` is on `PATH` so bindgen can load `libclang.dll`.

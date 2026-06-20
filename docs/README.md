@@ -7,6 +7,7 @@ Official upstream project: <https://github.com/MystenLabs/sui>
 ## Start here
 
 - `project_identity.md` — what this repo is and is not
+- `build.md` — build scripts and local build modes
 - `embedded_sources.md` — where embedded Sui and Move sources live
 - `root_layout.md` — root folder structure
 - `root_simplification.md` — removed root clutter and placement rules

@@ -16,19 +16,23 @@ The official Sui repository is maintained by Mysten Labs:
 
 ## What is Sui?
 
-Sui is a smart contract platform built around high throughput, low latency, and an asset-oriented programming model powered by the Move programming language. The official Sui README describes Sui as a next-generation smart contract platform written in Rust, with Move smart contracts used to define assets and the rules for creating, transferring, and mutating them.
+Sui is a next-generation smart contract platform with high throughput, low latency, and an asset-oriented programming model powered by the Move programming language. The official Sui repository describes Sui as a Rust codebase where Move smart contracts define assets and the rules for creating, transferring, and mutating them.
 
-Sui is designed around a permissionless set of authorities, similar in role to validators or miners in other blockchain systems. Its architecture is built to process many common transactions in parallel, making better use of hardware resources. For simple common use cases such as payments and asset transfers, Sui can use lower-latency primitives instead of forcing every transaction through the same consensus path.
+Sui is maintained by a permissionless set of authorities, similar in role to validators or miners in other blockchain systems. Its architecture is designed so many common transactions can be processed in parallel, allowing better use of hardware resources. For common payments and asset transfers, Sui can use lower-latency primitives instead of forcing every transaction through the same consensus path.
+
+Sui's high-level architecture includes clients such as CLI, REST, and RPC clients; a client service; an authority aggregator; authority clients; and authority state on validator/authority nodes. This cleaned repo keeps those concepts but places the Rust source into clearer domains.
 
 At a high level, Sui focuses on:
 
 - high throughput and low latency;
+- instant settlement for many common operations;
 - an asset-oriented object model;
 - Move-based smart contracts;
 - rich and composable on-chain assets;
 - improved user experience for web3 applications;
 - parallel processing for many independent transactions;
-- a native SUI token used for gas and delegated stake.
+- a native SUI token used for gas and delegated stake;
+- authority reconfiguration across epochs based on delegated stake.
 
 This repository does not change Sui's protocol goals. It only reorganizes the Rust workspace so the source tree is easier to understand.
 
@@ -71,19 +75,72 @@ The current baseline has been validated locally on Windows with:
 cargo check
 ```
 
-The default check focuses on the active workspace. Full all-target checks are intentionally separate because they are much larger.
+The default check focuses on the active workspace. Full workspace and all-target builds are intentionally separate because they are much larger.
 
-## Quick start
+## Build scripts
+
+Use the scripts instead of raw Cargo commands when building on Windows GNU. The scripts load MSYS2/MinGW64 and libclang into the process environment so native dependencies such as RocksDB can build correctly.
+
+```powershell
+scripts\build.bat debug
+scripts\build.bat release
+scripts\check.bat fast
+```
+
+On Linux/macOS, use the matching shell scripts:
+
+```bash
+scripts/build.sh debug
+scripts/build.sh release
+scripts/check.sh fast
+```
+
+Raw `cargo build` also works after your environment is configured. On Windows GNU, dot-source `.cargo\env-windows.ps1` first.
+
+## Build instructions
+
+### Prerequisites
+
+Install Rust using `rustup`. The repository includes `rust-toolchain.toml`, so Cargo will use the pinned toolchain configuration when available.
+
+For Windows GNU builds, install MSYS2 with MinGW64 GCC and clang/libclang. The build scripts expect the default MSYS2 layout:
+
+```text
+C:\msys64\mingw64\bin\clang.exe
+C:\msys64\mingw64\bin\libclang.dll
+```
+
+If MSYS2 is installed somewhere else, set `MSYS2_ROOT` before running the Windows scripts.
 
 ### Windows PowerShell
+
+Recommended build path:
 
 ```powershell
 git clone <your-repo-url> sui-clean
 cd sui-clean
 
 scripts\repair-windows.bat
+scripts\build.bat debug
+```
+
+The Windows build script loads the MSYS2/MinGW64 DLL path before running Cargo. This is important because `librocksdb-sys` uses bindgen, and bindgen needs to load `libclang.dll`.
+
+Other Windows build modes:
+
+```powershell
+scripts\build.bat release      # cargo build --release
+scripts\build.bat workspace    # cargo build --workspace
+scripts\build.bat full         # cargo build --workspace --all-targets
+scripts\build.bat check        # cargo check through the build wrapper
+```
+
+If you want to run Cargo directly instead of using the wrappers, load the generated Windows environment first:
+
+```powershell
+scripts\repair-windows.bat
 . .\.cargo\env-windows.ps1
-cargo xtask check-layout
+cargo build
 cargo check
 ```
 
@@ -93,11 +150,33 @@ cargo check
 git clone <your-repo-url> sui-clean
 cd sui-clean
 
-cargo xtask check-layout
-cargo check
+scripts/build.sh debug
+scripts/check.sh fast
 ```
 
-## Common commands
+Other Unix build modes:
+
+```bash
+scripts/build.sh release
+scripts/build.sh workspace
+scripts/build.sh full
+scripts/build.sh check
+```
+
+### Cargo-only commands
+
+These are useful after your environment is already configured:
+
+```powershell
+cargo build                 # normal debug build
+cargo build --release       # optimized build
+cargo check                 # fast validation
+cargo check --workspace     # broader workspace validation
+cargo xtask check-layout    # enforce cleaned layout
+cargo xtask status          # repo status summary
+```
+
+### Common `xtask` commands
 
 ```powershell
 cargo xtask status              # repo status summary
@@ -111,6 +190,24 @@ cargo xtask check-fast          # daily check
 cargo xtask check-workspace     # broader workspace check
 cargo xtask check-full          # huge all-targets gate
 ```
+
+### Troubleshooting Windows native builds
+
+If `librocksdb-sys` or bindgen cannot load `libclang.dll`, use the wrapper instead of direct Cargo:
+
+```powershell
+scripts\build.bat debug
+```
+
+Or manually load the environment in the current PowerShell session:
+
+```powershell
+. .\.cargo\env-windows.ps1
+cargo clean -p librocksdb-sys
+cargo build
+```
+
+The error usually means `C:\msys64\mingw64\bin` is not on `PATH` for the running Cargo process, even if `LIBCLANG_PATH` points to the right folder.
 
 ## Repository rules
 
@@ -163,9 +260,10 @@ This repository is self-contained. It does not include sync scripts or automatic
 The top-level `scripts/` folder is intentionally small:
 
 ```text
-check.*           build tier wrapper
-fmt.*             cargo fmt wrapper
-status.*          cargo xtask status wrapper
+build.*          cargo build wrapper with debug/release/workspace/full modes
+check.*          cargo check wrapper with fast/core/workspace/compat/full modes
+fmt.*            cargo fmt wrapper
+status.*         cargo xtask status wrapper
 repair-windows.* Windows GNU native-build repair wrapper
 ```
 
