@@ -207,7 +207,12 @@ cargo xtask check-workspace     # broader workspace check
 cargo xtask check-full          # huge all-targets gate
 ```
 
-### Troubleshooting Linux native builds
+#
+### CI libclang discovery
+
+Linux CI installs `clang`, `libclang-dev`, and native compression/build dependencies before running Cargo. Windows GNU CI installs MSYS2 packages and then discovers `libclang*.dll` dynamically from `mingw64`, `ucrt64`, `clang64`, `usr`, or a system LLVM install. This avoids hardcoding `C:\msys64\mingw64\bin\clang.exe`, which may not exist on every runner image.
+
+## Troubleshooting Linux native builds
 
 If Linux CI or a local Linux build fails with `Unable to find libclang`, install the system development packages and regenerate the optional environment file:
 
@@ -220,7 +225,12 @@ cargo build
 
 The GitHub Actions Linux job installs the same dependency set before running Cargo: `clang`, `libclang-dev`, `llvm-dev`, `build-essential`, `pkg-config`, `cmake`, `zlib1g-dev`, `libbz2-dev`, `libsnappy-dev`, and `libzstd-dev`.
 
-### Troubleshooting Windows native builds
+#
+### CI libclang discovery
+
+Linux CI installs `clang`, `libclang-dev`, and native compression/build dependencies before running Cargo. Windows GNU CI installs MSYS2 packages and then discovers `libclang*.dll` dynamically from `mingw64`, `ucrt64`, `clang64`, `usr`, or a system LLVM install. This avoids hardcoding `C:\msys64\mingw64\bin\clang.exe`, which may not exist on every runner image.
+
+## Troubleshooting Windows native builds
 
 If `librocksdb-sys` or bindgen cannot load `libclang.dll`, use the wrapper instead of direct Cargo:
 

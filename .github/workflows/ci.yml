@@ -79,15 +79,59 @@ jobs:
       - name: Configure Windows GNU libclang
         shell: pwsh
         run: |
-          "C:\msys64\mingw64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          "C:\msys64\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          $ErrorActionPreference = "Stop"
+          $roots = @(
+            "C:\msys64\mingw64\bin",
+            "C:\msys64\ucrt64\bin",
+            "C:\msys64\clang64\bin",
+            "C:\msys64\usr\bin",
+            "C:\Program Files\LLVM\bin"
+          ) | Where-Object { Test-Path $_ }
+
+          Write-Host "candidate tool directories:"
+          $roots | ForEach-Object { Write-Host "  $_" }
+
+          $libclang = $null
+          foreach ($dir in $roots) {
+            $hit = Get-ChildItem -Path $dir -Filter "libclang*.dll" -ErrorAction SilentlyContinue | Select-Object -First 1
+            if ($hit) { $libclang = $hit.FullName; break }
+          }
+          if (-not $libclang) {
+            Write-Host "Installed MSYS2 packages:"
+            if (Test-Path "C:\msys64\usr\bin\pacman.exe") {
+              & "C:\msys64\usr\bin\pacman.exe" -Qs clang | Out-String | Write-Host
+            }
+            throw "Unable to find libclang*.dll in MSYS2/LLVM tool directories"
+          }
+
+          $clang = $null
+          foreach ($dir in $roots) {
+            $hit = Get-ChildItem -Path $dir -Filter "clang*.exe" -ErrorAction SilentlyContinue |
+              Where-Object { $_.Name -match '^clang(-[0-9]+)?\.exe$' } |
+              Select-Object -First 1
+            if ($hit) { $clang = $hit.FullName; break }
+          }
+
+          $libclangDir = Split-Path $libclang -Parent
+          $usrBin = "C:\msys64\usr\bin"
+          $libclangDir | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          if (Test-Path $usrBin) { $usrBin | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append }
+
           "MSYS2_ROOT=C:\msys64" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          "LIBCLANG_PATH=C:\msys64\mingw64\bin" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          "CLANG_PATH=C:\msys64\mingw64\bin\clang.exe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "LIBCLANG_PATH=$libclangDir" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          if ($clang) { "CLANG_PATH=$clang" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append }
           "BINDGEN_EXTRA_CLANG_ARGS_x86_64_pc_windows_gnu=--target=x86_64-w64-windows-gnu" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "BINDGEN_EXTRA_CLANG_ARGS_x86_64-pc-windows-gnu=--target=x86_64-w64-windows-gnu" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           "CXXFLAGS_x86_64_pc_windows_gnu=-include cstdint" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          Get-ChildItem C:\msys64\mingw64\bin\libclang*.dll
-          & C:\msys64\mingw64\bin\clang.exe --version
+          "CXXFLAGS_x86_64-pc-windows-gnu=-include cstdint" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+          Write-Host "libclang: $libclang"
+          if ($clang) {
+            Write-Host "clang:    $clang"
+            & $clang --version
+          } else {
+            Write-Host "clang executable was not found, but libclang is available for bindgen."
+          }
 
       - name: Repair Windows build environment
         shell: pwsh

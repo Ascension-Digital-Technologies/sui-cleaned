@@ -17,6 +17,7 @@ if (!(Test-Path $pacman)) {
   mingw-w64-x86_64-clang `
   mingw-w64-x86_64-gcc `
   mingw-w64-x86_64-llvm `
+  mingw-w64-x86_64-lld `
   mingw-w64-x86_64-pkgconf `
   pkgconf
 
