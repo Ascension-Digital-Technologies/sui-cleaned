@@ -1,6 +1,6 @@
-# Sui Clean
+# Sui Cleaned
 
-**Sui Clean** is an unofficial, cleaned-up Rust workspace for [Sui](https://github.com/MystenLabs/sui).
+**Sui-Cleaned** is an unofficial, cleaned-up Rust workspace for [Sui](https://github.com/MystenLabs/sui).
 
 This repository keeps the Sui codebase recognizable and Cargo-compatible while presenting it in a cleaner, domain-oriented layout. It is meant to be easier to browse, build, audit, and maintain than a large historical monorepo tree.
 
