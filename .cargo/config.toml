@@ -1,0 +1,51 @@
+[alias]
+xtask = "run --package xtask --"
+# Fast normal loop: checks only workspace.default-members and normal lib/bin targets.
+ck = "check"
+check-fast = "check"
+
+# Checks every active workspace package, but avoids tests/benches/examples.
+check-workspace = "check --workspace"
+
+# Expensive upstream parity gate: every package plus tests/benches/examples.
+# This can build thousands of crates because Sui/Move test, indexer, bridge,
+# faucet, rosetta, analyzer, fuzz, and benchmark targets become reachable.
+check-full = "check --workspace --all-targets"
+
+# Metadata aliases.
+meta = "metadata --format-version 1 --no-deps"
+meta-full = "metadata --format-version 1"
+
+# Clippy modes.
+clippy-fast = "clippy"
+clippy-workspace = "clippy --workspace"
+clippy-full = "clippy --workspace --all-targets --all-features"
+
+# Xtask-backed repository workflows.
+xstatus = "run --package xtask -- status"
+xrepair-windows = "run --package xtask -- repair-windows"
+xcheck-core = "run --package xtask -- check-core"
+xcheck-sui-compat = "run --package xtask -- check-sui-compat"
+xcheck-full = "run --package xtask -- check-full"
+
+xcheck-layout = "run --package xtask -- check-layout"
+xtree = "run --package xtask -- tree"
+
+[build]
+target-dir = "target"
+
+[future-incompat-report]
+frequency = "always"
+# Windows GNU RocksDB fix. librocksdb-sys 0.16 / RocksDB 8.10 can fail on
+# x86_64-pc-windows-gnu because rocksdb/options/offpeak_time_info.h uses
+# int64_t without pulling in <cstdint>. cc-rs passes these flags to g++.
+# The target-specific variables keep this from changing Linux/MSVC builds.
+[env]
+"CXXFLAGS_x86_64_pc_windows_gnu" = { value = "-include cstdint", force = false }
+"CXXFLAGS_x86_64-pc-windows-gnu" = { value = "-include cstdint", force = false }
+# Windows GNU bindgen/libclang fix. bindgen needs libclang to build librocksdb-sys.
+# These defaults match the MSYS2 mingw64 layout used by the Windows build scripts.
+"LIBCLANG_PATH" = { value = "C:\\msys64\\mingw64\\bin", force = false }
+"CLANG_PATH" = { value = "C:\\msys64\\mingw64\\bin\\clang.exe", force = false }
+"BINDGEN_EXTRA_CLANG_ARGS_x86_64_pc_windows_gnu" = { value = "--target=x86_64-w64-windows-gnu", force = false }
+"BINDGEN_EXTRA_CLANG_ARGS_x86_64-pc-windows-gnu" = { value = "--target=x86_64-w64-windows-gnu", force = false }

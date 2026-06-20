@@ -1,0 +1,23 @@
+name: Cleanup request
+description: Suggest a repository cleanup or layout improvement
+title: "cleanup: "
+labels: ["cleanup"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What feels messy or unclear?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed cleanup
+      description: Describe the folder move, naming change, docs improvement, or xtask command you want.
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility concerns
+      description: Mention Cargo path dependencies, upstream sync, or Windows/Linux build impact if known.

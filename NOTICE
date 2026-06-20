@@ -1,0 +1,7 @@
+Sui Clean Rust Reference Workspace
+
+This repository contains a cleaned, domain-oriented extraction of source files derived
+from the MystenLabs Sui repository. Original source is licensed under Apache-2.0.
+Preserve upstream copyright notices and license headers when modifying or redistributing.
+
+Upstream reference: https://github.com/MystenLabs/sui

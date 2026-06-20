@@ -1,0 +1,3 @@
+# Keep this minimal: upstream Sui crates already carry their own lint expectations.
+avoid-breaking-exported-api = false
+msrv = "1.92"
