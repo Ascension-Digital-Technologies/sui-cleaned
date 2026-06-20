@@ -6,7 +6,9 @@
 
 | Script | Purpose |
 |---|---|
-| `build.bat` / `build.sh` | Build modes: `debug`, `release`, `workspace`, `full`, or `check`. Windows loads MSYS2/libclang automatically. |
+| `setup-linux.sh` | Install Linux native build dependencies such as clang, libclang, pkg-config, cmake, and compression libraries. |
+| `setup-windows.bat` / `setup-windows.ps1` | Install MSYS2/MinGW64 native build dependencies and generate the Windows Cargo environment. |
+| `build.bat` / `build.sh` | Build modes: `debug`, `release`, `workspace`, `full`, or `check`. Windows loads MSYS2/libclang automatically; Unix sources `.cargo/env-linux.sh` when present. |
 | `check.bat` / `check.sh` | Check tiers: `fast`, `core`, `workspace`, `compat`, or `full`. Windows loads MSYS2/libclang automatically. |
 | `fmt.bat` / `fmt.sh` | Run formatting through `cargo xtask fmt`. |
 | `status.bat` / `status.sh` | Run `cargo xtask status`. |
@@ -15,6 +17,7 @@
 ## Windows examples
 
 ```powershell
+scripts\setup-windows.bat
 scripts\build.bat debug
 scripts\build.bat release
 scripts\check.bat fast
@@ -33,6 +36,7 @@ The wrapper scripts do this environment setup automatically.
 ## Linux/macOS examples
 
 ```bash
+scripts/setup-linux.sh
 scripts/build.sh debug
 scripts/build.sh release
 scripts/check.sh fast

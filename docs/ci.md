@@ -37,3 +37,21 @@ scripts\check.bat fast
 ## Windows native environment
 
 Windows jobs should either use `scripts\build.bat` / `scripts\check.bat` or dot-source `.cargo\env-windows.ps1` before direct Cargo commands. This ensures MSYS2 `mingw64\bin` is on `PATH` so bindgen can load `libclang.dll`.
+
+## Native system dependencies
+
+The CI jobs install native dependencies before Cargo runs. This is required because `librocksdb-sys` uses bindgen, and bindgen needs a system libclang shared library at build time.
+
+### Linux
+
+The Linux job installs clang/libclang and RocksDB-related native build dependencies with apt:
+
+```text
+build-essential clang cmake libbz2-dev libclang-dev libsnappy-dev libzstd-dev llvm-dev pkg-config zlib1g-dev
+```
+
+It then sets `LIBCLANG_PATH` from `llvm-config --libdir`.
+
+### Windows GNU
+
+The Windows GNU job installs MSYS2/MinGW64 compiler and libclang packages, adds `C:\msys64\mingw64\bin` and `C:\msys64\usr\bin` to PATH, and exports `LIBCLANG_PATH=C:\msys64\mingw64\bin` before running the Windows repair/build wrappers.

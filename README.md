@@ -1,6 +1,6 @@
-# Sui Cleaned
+# Sui Clean
 
-**Sui-Cleaned** is an unofficial, cleaned-up Rust workspace for [Sui](https://github.com/MystenLabs/sui).
+**Sui Clean** is an unofficial, cleaned-up Rust workspace for [Sui](https://github.com/MystenLabs/sui).
 
 This repository keeps the Sui codebase recognizable and Cargo-compatible while presenting it in a cleaner, domain-oriented layout. It is meant to be easier to browse, build, audit, and maintain than a large historical monorepo tree.
 
@@ -82,6 +82,7 @@ The default check focuses on the active workspace. Full workspace and all-target
 Use the scripts instead of raw Cargo commands when building on Windows GNU. The scripts load MSYS2/MinGW64 and libclang into the process environment so native dependencies such as RocksDB can build correctly.
 
 ```powershell
+scripts\setup-windows.bat     # one-time dependency setup, when MSYS2 is installed
 scripts\build.bat debug
 scripts\build.bat release
 scripts\check.bat fast
@@ -90,6 +91,7 @@ scripts\check.bat fast
 On Linux/macOS, use the matching shell scripts:
 
 ```bash
+scripts/setup-linux.sh        # one-time dependency setup on Debian/Ubuntu
 scripts/build.sh debug
 scripts/build.sh release
 scripts/check.sh fast
@@ -103,7 +105,19 @@ Raw `cargo build` also works after your environment is configured. On Windows GN
 
 Install Rust using `rustup`. The repository includes `rust-toolchain.toml`, so Cargo will use the pinned toolchain configuration when available.
 
-For Windows GNU builds, install MSYS2 with MinGW64 GCC and clang/libclang. The build scripts expect the default MSYS2 layout:
+For Linux builds, install clang/libclang and native compression/database build dependencies. On Debian/Ubuntu this repo provides:
+
+```bash
+scripts/setup-linux.sh
+```
+
+For Windows GNU builds, install MSYS2 with MinGW64 GCC and clang/libclang. If MSYS2 is already installed, this repo provides:
+
+```powershell
+scripts\setup-windows.bat
+```
+
+The build scripts expect the default MSYS2 layout:
 
 ```text
 C:\msys64\mingw64\bin\clang.exe
@@ -120,6 +134,7 @@ Recommended build path:
 git clone <your-repo-url> sui-clean
 cd sui-clean
 
+scripts\setup-windows.bat
 scripts\repair-windows.bat
 scripts\build.bat debug
 ```
@@ -150,6 +165,7 @@ cargo check
 git clone <your-repo-url> sui-clean
 cd sui-clean
 
+scripts/setup-linux.sh
 scripts/build.sh debug
 scripts/check.sh fast
 ```
@@ -190,6 +206,19 @@ cargo xtask check-fast          # daily check
 cargo xtask check-workspace     # broader workspace check
 cargo xtask check-full          # huge all-targets gate
 ```
+
+### Troubleshooting Linux native builds
+
+If Linux CI or a local Linux build fails with `Unable to find libclang`, install the system development packages and regenerate the optional environment file:
+
+```bash
+scripts/setup-linux.sh
+source .cargo/env-linux.sh
+cargo clean -p librocksdb-sys
+cargo build
+```
+
+The GitHub Actions Linux job installs the same dependency set before running Cargo: `clang`, `libclang-dev`, `llvm-dev`, `build-essential`, `pkg-config`, `cmake`, `zlib1g-dev`, `libbz2-dev`, `libsnappy-dev`, and `libzstd-dev`.
 
 ### Troubleshooting Windows native builds
 
@@ -244,6 +273,7 @@ Start here:
 - [`docs/crates_domains.md`](docs/crates_domains.md) — domain layout rules
 - [`docs/domain_commands.md`](docs/domain_commands.md) — `xtask` domain commands
 - [`docs/embedded_sources.md`](docs/embedded_sources.md) — embedded Sui/Move source placement
+- [`docs/build.md`](docs/build.md) — full local build guide
 - [`docs/windows_build.md`](docs/windows_build.md) — Windows build notes
 - [`docs/github.md`](docs/github.md) — GitHub workflow and contribution expectations
 - [`docs/ci.md`](docs/ci.md) — CI and Cargo.lock behavior
@@ -260,6 +290,8 @@ This repository is self-contained. It does not include sync scripts or automatic
 The top-level `scripts/` folder is intentionally small:
 
 ```text
+setup-linux.sh   install Linux native dependencies
+setup-windows.*  install MSYS2/MinGW64 native dependencies
 build.*          cargo build wrapper with debug/release/workspace/full modes
 check.*          cargo check wrapper with fast/core/workspace/compat/full modes
 fmt.*            cargo fmt wrapper
