@@ -67,3 +67,8 @@ If a PR updates embedded upstream Sui/Move code, include:
 - any repair scripts run,
 - the result of `cargo xtask check-layout`, and
 - the result of `cargo check`.
+
+
+## Maintainer
+
+Maintainer: **Mario Vinciguerra** (`@mariovinci`).

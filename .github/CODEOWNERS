@@ -1,0 +1,32 @@
+# Sui Clean repository ownership
+# Maintainer: Mario Vinciguerra (@mariovinci)
+
+# Default owner
+* @mariovinci
+
+# Repository governance
+/.github/ @mariovinci
+/README.md @mariovinci
+/CONTRIBUTING.md @mariovinci
+/SECURITY.md @mariovinci
+/SUPPORT.md @mariovinci
+/CHANGELOG.md @mariovinci
+/RELEASE.md @mariovinci
+
+# Source domains
+/crates/api/ @mariovinci
+/crates/crypto/ @mariovinci
+/crates/config/ @mariovinci
+/crates/runtime/ @mariovinci
+/crates/consensus/ @mariovinci
+/crates/execution/ @mariovinci
+/crates/network/ @mariovinci
+/crates/protocol/ @mariovinci
+/crates/storage/ @mariovinci
+
+# Root work areas
+/bench/ @mariovinci
+/tests/ @mariovinci
+/tools/ @mariovinci
+/scripts/ @mariovinci
+/docs/ @mariovinci

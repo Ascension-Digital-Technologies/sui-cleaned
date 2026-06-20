@@ -12,11 +12,15 @@ One-time setup on a Windows machine with MSYS2 installed:
 scripts\setup-windows.bat
 ```
 
-Then build:
+Then build from the repository root or from inside `scripts/`; both forms are supported:
 
 ```powershell
-scripts\repair-windows.bat
 scripts\build.bat debug
+```
+
+```powershell
+cd scripts
+.\build.bat debug
 ```
 
 Build modes:
@@ -84,3 +88,23 @@ mingw-w64-x86_64-gcc mingw-w64-x86_64-clang mingw-w64-x86_64-llvm mingw-w64-x86_
 ```
 
 The workflow then exports `LIBCLANG_PATH` and updates `PATH` so Linux can load `libclang.so` and Windows can load `libclang.dll`.
+
+## Test and clean wrappers
+
+Windows:
+
+```powershell
+scripts	est.bat fast
+scripts	est.bat workspace
+scripts\clean.bat native
+```
+
+Linux/macOS:
+
+```bash
+scripts/test.sh fast
+scripts/test.sh workspace
+scripts/clean.sh native
+```
+
+The `fast` test mode compiles tests without running every test binary. This is useful for large workspaces where a full test run is intentionally slower than a build validation gate.

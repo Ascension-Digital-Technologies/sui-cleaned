@@ -53,18 +53,22 @@ const SUI_COMPAT_PACKAGES: &[&str] = &[
 const ALLOWED_ROOT_ENTRIES: &[&str] = &[
     ".cargo",
     ".editorconfig",
+    ".gitattributes",
     ".git",
     ".github",
     ".gitignore",
     "Cargo.lock",
     "Cargo.toml",
+    "CHANGELOG.md",
     "CODE_OF_CONDUCT.md",
     "CONTRIBUTING.md",
     "LICENSE",
     "Makefile",
     "NOTICE",
     "README.md",
+    "RELEASE.md",
     "SECURITY.md",
+    "SUPPORT.md",
     "bench",
     "clippy.toml",
     "crates",
@@ -77,12 +81,18 @@ const ALLOWED_ROOT_ENTRIES: &[&str] = &[
 ];
 
 const REQUIRED_DOCS: &[&str] = &[
+    "docs/architecture.md",
     "docs/build.md",
     "docs/build_modes.md",
     "docs/domain_commands.md",
     "docs/repo_hygiene.md",
     "docs/root_layout.md",
     "docs/script_inventory.md",
+    "docs/source_map.md",
+    "docs/troubleshooting.md",
+    "docs/linux_toolchain.md",
+    "docs/official_sui.md",
+    "docs/release_checklist.md",
     "docs/embedded_sources.md",
     "docs/windows_build.md",
     "docs/workspace_tiers.md",
@@ -271,7 +281,12 @@ fn print_tiers() {
 fn scripts() -> io::Result<u8> {
     println!("script inventory\n");
     println!("  public entrypoints");
+    println!("    setup-linux.sh            install Linux native build dependencies");
+    println!("    setup-windows.bat/.ps1    install/prepare Windows native build dependencies");
+    println!("    build.bat/.sh             build wrapper: debug, release, workspace, full, check");
     println!("    check.bat/.sh             build tier wrapper: fast, core, workspace, compat, full");
+    println!("    test.bat/.sh              test wrapper: fast, workspace, full, run");
+    println!("    clean.bat/.sh             clean wrapper: target, native, xtask");
     println!("    fmt.bat/.sh               cargo xtask fmt");
     println!("    status.bat/.sh            cargo xtask status");
     println!("    repair-windows.bat/.sh    apply Windows GNU native-build fixes\n");
@@ -489,6 +504,9 @@ fn status(strict: bool) -> io::Result<u8> {
     println!("repo: {}\n", root.display());
 
     check(&mut failed, "root Cargo.toml", root.join("Cargo.toml").exists());
+    check(&mut failed, "GitHub CODEOWNERS", root.join(".github/CODEOWNERS").exists());
+    check(&mut failed, "support docs", root.join("SUPPORT.md").exists() && root.join("CHANGELOG.md").exists() && root.join("RELEASE.md").exists());
+    check(&mut failed, "gitattributes", root.join(".gitattributes").exists());
     check(&mut failed, "xtask member", file_contains(root.join("Cargo.toml"), "crates/runtime/xtask")?);
     check(&mut failed, "cargo xtask alias", file_contains(root.join(".cargo/config.toml"), "xtask =")?);
     check(&mut failed, "xtask under crates/runtime", root.join("crates/runtime/xtask/Cargo.toml").exists());
@@ -503,6 +521,7 @@ fn status(strict: bool) -> io::Result<u8> {
     check(&mut failed, "Windows bindgen libclang path", file_contains(root.join(".cargo/config.toml"), "LIBCLANG_PATH")?);
     check(&mut failed, "Windows libclang helper", root.join("scripts/lib/repair-windows-bindgen-libclang.ps1").exists());
     check(&mut failed, "single repair-windows wrapper", root.join("scripts/repair-windows.bat").exists() && root.join("scripts/repair-windows.sh").exists());
+    check(&mut failed, "build/test/clean scripts", root.join("scripts/build.bat").exists() && root.join("scripts/test.bat").exists() && root.join("scripts/clean.bat").exists());
     check(&mut failed, "typed-store Windows-safe RocksDB", typed_store_windows_safe(&root)?);
     check(&mut failed, "workspace inheritance audit", root.join("scripts/lib/audit-workspace-inheritance.py").exists());
     check(&mut failed, "direct path audit", root.join("scripts/lib/audit-direct-paths.py").exists());

@@ -20,3 +20,11 @@ Describe what this PR cleans up or fixes.
 ## Notes
 
 Mention any path rewrites, package aliases, or Windows build changes.
+
+## Validation
+
+- [ ] `cargo xtask check-layout`
+- [ ] `cargo xtask status`
+- [ ] `scripts/check.* fast`
+- [ ] `scripts/test.* fast`
+- [ ] Documentation updated when behavior/layout changed

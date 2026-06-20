@@ -1,10 +1,8 @@
 # Sui Clean
 
-**Sui Clean** is an unofficial, cleaned-up Rust workspace for [Sui](https://github.com/MystenLabs/sui).
+**Sui Clean** is an unofficial, cleaned-up Rust workspace for [Sui](https://github.com/MystenLabs/sui). It keeps Sui source recognizable and Cargo-compatible while presenting the code in a cleaner, domain-oriented layout for browsing, building, auditing, and development.
 
-This repository keeps the Sui codebase recognizable and Cargo-compatible while presenting it in a cleaner, domain-oriented layout. It is meant to be easier to browse, build, audit, and maintain than a large historical monorepo tree.
-
-> This project is not an official Mysten Labs or Sui Foundation repository. It is an unofficial cleaned-up layout derived from Sui-compatible source code. Upstream package identity, license notices, and attribution are preserved where needed.
+> This project is **not** an official Mysten Labs or Sui Foundation repository. It is an unofficial cleaned-up layout derived from Sui-compatible source code. Upstream package identity, license notices, and attribution are preserved where needed.
 
 ## Official upstream
 
@@ -16,31 +14,28 @@ The official Sui repository is maintained by Mysten Labs:
 
 ## What is Sui?
 
-Sui is a next-generation smart contract platform with high throughput, low latency, and an asset-oriented programming model powered by the Move programming language. The official Sui repository describes Sui as a Rust codebase where Move smart contracts define assets and the rules for creating, transferring, and mutating them.
+The official Sui README describes Sui as a next-generation smart contract platform with high throughput, low latency, and an asset-oriented programming model powered by the Move programming language.
 
-Sui is maintained by a permissionless set of authorities, similar in role to validators or miners in other blockchain systems. Its architecture is designed so many common transactions can be processed in parallel, allowing better use of hardware resources. For common payments and asset transfers, Sui can use lower-latency primitives instead of forcing every transaction through the same consensus path.
+Sui is written in Rust and supports smart contracts written in Move. Move programs define assets and the rules for creating, transferring, and mutating those assets. Sui is maintained by a permissionless set of authorities, similar in role to validators or miners in other blockchain systems.
 
-Sui's high-level architecture includes clients such as CLI, REST, and RPC clients; a client service; an authority aggregator; authority clients; and authority state on validator/authority nodes. This cleaned repo keeps those concepts but places the Rust source into clearer domains.
+A major Sui design goal is parallel transaction processing. Many common transactions can be processed independently, which lets the system make better use of available hardware resources. For common payments and asset transfers, Sui can use lower-latency primitives instead of sending every transaction through a single uniform consensus path.
 
-At a high level, Sui focuses on:
+Sui uses the native SUI token for gas and delegated stake. Authority voting power within an epoch is based on delegated stake, and authorities are periodically reconfigured. The official README also highlights Sui's focus on rich composable on-chain assets, instant settlement for many common operations, and better user experience for web3 applications.
 
-- high throughput and low latency;
-- instant settlement for many common operations;
-- an asset-oriented object model;
-- Move-based smart contracts;
-- rich and composable on-chain assets;
-- improved user experience for web3 applications;
-- parallel processing for many independent transactions;
-- a native SUI token used for gas and delegated stake;
-- authority reconfiguration across epochs based on delegated stake.
+## What this repository changes
 
-This repository does not change Sui's protocol goals. It only reorganizes the Rust workspace so the source tree is easier to understand.
+This repository does **not** redefine Sui's protocol, token model, or production release process. It is a source-layout cleanup that makes the Rust workspace easier to understand.
 
-## Why this cleanup exists
+The cleanup focuses on:
 
-Large blockchain repositories tend to grow around teams, release machinery, generated code, experiments, and historical layout decisions. That can make the source tree difficult to understand even when the code itself is valuable.
+- domain-oriented crate placement;
+- fewer generated or historical root folders;
+- embedded Sui and Move source needed by the workspace;
+- platform-aware build scripts;
+- GitHub-ready documentation and workflow files;
+- clear attribution back to the official Sui repository.
 
-Sui Clean keeps the useful Rust code and reshapes the workspace around clear ownership boundaries:
+## Repository layout
 
 ```text
 crates/
@@ -53,11 +48,7 @@ crates/
   network/    network clients, authority aggregation, HTTP, proxy, networking primitives
   protocol/   Sui types, transaction checks/builders, display, bridge, macro utilities
   storage/    stores, typed-store, snapshots, indexer schemas/stores, SQL helpers
-```
 
-Root-level supporting crates stay outside `crates/`:
-
-```text
 bench/      benchmark and load-generation crates
 tests/      integration, transactional, fuzz, and fixture crates
 tools/      operational and developer tool crates
@@ -65,98 +56,30 @@ scripts/    small wrapper scripts for common workflows
 docs/       human-maintained documentation
 ```
 
-There is no root `vendor/`, `upstream/`, `manifests/`, `reports/`, or root-level `xtask/` folder. The Sui and Move sources needed by this workspace are embedded directly into the cleaned domain layout.
+There is no root `vendor/`, `upstream/`, `manifests/`, `reports/`, or root-level `xtask/` folder. Repository automation lives at `crates/runtime/xtask`, and generated output belongs under `target/`.
 
-## Current status
-
-The current baseline has been validated locally on Windows with:
-
-```powershell
-cargo check
-```
-
-The default check focuses on the active workspace. Full workspace and all-target builds are intentionally separate because they are much larger.
-
-## Build scripts
-
-Use the scripts instead of raw Cargo commands when building on Windows GNU. The scripts load MSYS2/MinGW64 and libclang into the process environment so native dependencies such as RocksDB can build correctly.
-
-```powershell
-scripts\setup-windows.bat     # one-time dependency setup, when MSYS2 is installed
-scripts\build.bat debug
-scripts\build.bat release
-scripts\check.bat fast
-```
-
-On Linux/macOS, use the matching shell scripts:
-
-```bash
-scripts/setup-linux.sh        # one-time dependency setup on Debian/Ubuntu
-scripts/build.sh debug
-scripts/build.sh release
-scripts/check.sh fast
-```
-
-Raw `cargo build` also works after your environment is configured. On Windows GNU, dot-source `.cargo\env-windows.ps1` first.
-
-## Build instructions
-
-### Prerequisites
-
-Install Rust using `rustup`. The repository includes `rust-toolchain.toml`, so Cargo will use the pinned toolchain configuration when available.
-
-For Linux builds, install clang/libclang and native compression/database build dependencies. On Debian/Ubuntu this repo provides:
-
-```bash
-scripts/setup-linux.sh
-```
-
-For Windows GNU builds, install MSYS2 with MinGW64 GCC and clang/libclang. If MSYS2 is already installed, this repo provides:
-
-```powershell
-scripts\setup-windows.bat
-```
-
-The build scripts expect the default MSYS2 layout:
-
-```text
-C:\msys64\mingw64\bin\clang.exe
-C:\msys64\mingw64\bin\libclang.dll
-```
-
-If MSYS2 is installed somewhere else, set `MSYS2_ROOT` before running the Windows scripts.
+## Quick start
 
 ### Windows PowerShell
-
-Recommended build path:
 
 ```powershell
 git clone <your-repo-url> sui-clean
 cd sui-clean
 
 scripts\setup-windows.bat
-scripts\repair-windows.bat
 scripts\build.bat debug
 ```
 
-The Windows build script loads the MSYS2/MinGW64 DLL path before running Cargo. This is important because `librocksdb-sys` uses bindgen, and bindgen needs to load `libclang.dll`.
-
-Other Windows build modes:
+For a fast validation pass:
 
 ```powershell
-scripts\build.bat release      # cargo build --release
-scripts\build.bat workspace    # cargo build --workspace
-scripts\build.bat full         # cargo build --workspace --all-targets
-scripts\build.bat check        # cargo check through the build wrapper
+scripts\check.bat fast
 ```
 
-If you want to run Cargo directly instead of using the wrappers, load the generated Windows environment first:
+For tests without running all test binaries:
 
 ```powershell
-scripts\repair-windows.bat
-. .\.cargo\env-windows.ps1
-cargo build
-cargo check
+scripts\test.bat fast
 ```
 
 ### Linux/macOS
@@ -167,34 +90,85 @@ cd sui-clean
 
 scripts/setup-linux.sh
 scripts/build.sh debug
+```
+
+For a fast validation pass:
+
+```bash
 scripts/check.sh fast
 ```
 
-Other Unix build modes:
+For tests without running all test binaries:
 
 ```bash
+scripts/test.sh fast
+```
+
+## Build scripts
+
+Use the scripts instead of raw Cargo commands when building on Windows GNU. The scripts load MSYS2/MinGW64 and libclang into the process environment so native dependencies such as RocksDB can build correctly. You can run them from the repository root or from inside `scripts/`; they resolve the repo root automatically.
+
+| Command | Purpose |
+|---|---|
+| `scripts\setup-windows.bat` | Install/prepare Windows native build dependencies and generate `.cargo\env-windows.ps1`. |
+| `scripts\build.bat debug` | Debug build with Windows native environment loaded. |
+| `scripts\build.bat release` | Optimized release build. |
+| `scripts\check.bat fast` | Daily fast check. |
+| `scripts\test.bat fast` | Compile tests without running every test binary. |
+| `scripts\clean.bat native` | Clean native RocksDB/jemalloc-related packages. |
+| `scripts/setup-linux.sh` | Install Linux native build dependencies. |
+| `scripts/build.sh debug` | Debug build on Unix shells. |
+| `scripts/check.sh fast` | Daily fast check on Unix shells. |
+| `scripts/test.sh fast` | Compile tests on Unix shells. |
+
+Build modes:
+
+```powershell
+scripts\build.bat debug
+scripts\build.bat release
+scripts\build.bat workspace
+scripts\build.bat full
+scripts\build.bat check
+```
+
+```bash
+scripts/build.sh debug
 scripts/build.sh release
 scripts/build.sh workspace
 scripts/build.sh full
 scripts/build.sh check
 ```
 
-### Cargo-only commands
+## Direct Cargo commands
 
-These are useful after your environment is already configured:
+Raw Cargo works after the platform environment is configured.
+
+On Windows GNU, load the generated environment first:
 
 ```powershell
-cargo build                 # normal debug build
-cargo build --release       # optimized build
-cargo check                 # fast validation
-cargo check --workspace     # broader workspace validation
-cargo xtask check-layout    # enforce cleaned layout
-cargo xtask status          # repo status summary
+scripts\repair-windows.bat
+. .\.cargo\env-windows.ps1
+cargo build
+cargo check
 ```
 
-### Common `xtask` commands
+On Linux/macOS, `scripts/setup-linux.sh` writes `.cargo/env-linux.sh` when it can discover LLVM/libclang. The shell scripts source it automatically.
 
-```powershell
+Useful Cargo commands:
+
+```bash
+cargo build
+cargo build --release
+cargo check
+cargo check --workspace
+cargo test --no-run
+cargo xtask check-layout
+cargo xtask status
+```
+
+## `xtask` commands
+
+```bash
 cargo xtask status              # repo status summary
 cargo xtask tree                # print the cleaned tree
 cargo xtask domains             # list crate domains
@@ -207,110 +181,53 @@ cargo xtask check-workspace     # broader workspace check
 cargo xtask check-full          # huge all-targets gate
 ```
 
-#
-### CI libclang discovery
+## CI
 
-Linux CI installs `clang`, `libclang-dev`, and native compression/build dependencies before running Cargo. Windows GNU CI installs MSYS2 packages and then discovers `libclang*.dll` dynamically from `mingw64`, `ucrt64`, `clang64`, `usr`, or a system LLVM install. This avoids hardcoding `C:\msys64\mingw64\bin\clang.exe`, which may not exist on every runner image.
+GitHub Actions runs layout checks plus Linux and Windows GNU Cargo checks. Linux CI installs `clang`, `libclang-dev`, and native compression/build dependencies before Cargo. Windows GNU CI installs MSYS2 packages and discovers `libclang*.dll` dynamically instead of relying on a single hardcoded path.
 
-## Troubleshooting Linux native builds
+See [`docs/ci.md`](docs/ci.md) for details.
 
-If Linux CI or a local Linux build fails with `Unable to find libclang`, install the system development packages and regenerate the optional environment file:
+## Troubleshooting
 
-```bash
-scripts/setup-linux.sh
-source .cargo/env-linux.sh
-cargo clean -p librocksdb-sys
-cargo build
-```
+Common native-build issues are documented in [`docs/troubleshooting.md`](docs/troubleshooting.md).
 
-The GitHub Actions Linux job installs the same dependency set before running Cargo: `clang`, `libclang-dev`, `llvm-dev`, `build-essential`, `pkg-config`, `cmake`, `zlib1g-dev`, `libbz2-dev`, `libsnappy-dev`, and `libzstd-dev`.
-
-#
-### CI libclang discovery
-
-Linux CI installs `clang`, `libclang-dev`, and native compression/build dependencies before running Cargo. Windows GNU CI installs MSYS2 packages and then discovers `libclang*.dll` dynamically from `mingw64`, `ucrt64`, `clang64`, `usr`, or a system LLVM install. This avoids hardcoding `C:\msys64\mingw64\bin\clang.exe`, which may not exist on every runner image.
-
-## Troubleshooting Windows native builds
-
-If `librocksdb-sys` or bindgen cannot load `libclang.dll`, use the wrapper instead of direct Cargo:
+Frequent fixes:
 
 ```powershell
+scripts\repair-windows.bat
+scripts\clean.bat native
 scripts\build.bat debug
 ```
 
-Or manually load the environment in the current PowerShell session:
-
-```powershell
-. .\.cargo\env-windows.ps1
-cargo clean -p librocksdb-sys
-cargo build
+```bash
+scripts/setup-linux.sh
+scripts/clean.sh native
+scripts/build.sh debug
 ```
-
-The error usually means `C:\msys64\mingw64\bin` is not on `PATH` for the running Cargo process, even if `LIBCLANG_PATH` points to the right folder.
-
-## Repository rules
-
-The `crates/` folder is limited to these domains only:
-
-```text
-api, crypto, config, runtime, consensus, execution, network, protocol, storage
-```
-
-`bench/`, `tests/`, and `tools/` stay at the repository root. They should not be placed under `crates/`.
-
-`crates/runtime/xtask/` contains the repository automation crate used by `cargo xtask`.
-
-`crates/execution/move-vm/` is the canonical location for embedded Move VM and Move execution sources.
-
-
-## Cargo.lock and CI
-
-The GitHub workflow runs `cargo check` without `--locked`. This is intentional for this cleaned workspace because large source-layout moves can make the checked-in `Cargo.lock` stale even when the Rust source is otherwise valid. For release branches, run:
-
-```powershell
-cargo check
-git status Cargo.lock
-```
-
-If `Cargo.lock` changed because of a real dependency graph update, commit it with the cleanup.
 
 ## Documentation
 
-Start here:
+- [`docs/architecture.md`](docs/architecture.md) - cleaned repository architecture.
+- [`docs/source_map.md`](docs/source_map.md) - map from upstream-style Sui areas to cleaned locations.
+- [`docs/official_sui.md`](docs/official_sui.md) - official Sui overview and links.
+- [`docs/build.md`](docs/build.md) - build instructions.
+- [`docs/troubleshooting.md`](docs/troubleshooting.md) - common build failures.
+- [`docs/windows_toolchain.md`](docs/windows_toolchain.md) - Windows GNU/MSYS2 setup.
+- [`docs/linux_toolchain.md`](docs/linux_toolchain.md) - Linux setup.
+- [`docs/release_checklist.md`](docs/release_checklist.md) - release preparation.
 
-- [`docs/project_identity.md`](docs/project_identity.md) — what this repo is and is not
-- [`docs/root_layout.md`](docs/root_layout.md) — root-level structure
-- [`docs/crates_domains.md`](docs/crates_domains.md) — domain layout rules
-- [`docs/domain_commands.md`](docs/domain_commands.md) — `xtask` domain commands
-- [`docs/embedded_sources.md`](docs/embedded_sources.md) — embedded Sui/Move source placement
-- [`docs/build.md`](docs/build.md) — full local build guide
-- [`docs/windows_build.md`](docs/windows_build.md) — Windows build notes
-- [`docs/github.md`](docs/github.md) — GitHub workflow and contribution expectations
-- [`docs/ci.md`](docs/ci.md) — CI and Cargo.lock behavior
-- [`docs/license_attribution.md`](docs/license_attribution.md) — upstream license/attribution notes
+## Maintainer
 
-## Relationship to upstream Sui
+Maintainer: **Mario Vinciguerra** (`@mariovinci`)
 
-Sui Clean is a cleaned-up, domain-organized Sui workspace. It preserves upstream package names where needed for Cargo compatibility, but folder names and domain placement are intentionally clearer than the original source layout.
+## Contributing
 
-This repository is self-contained. It does not include sync scripts or automatic upstream refresh tooling. Future source refreshes should be handled deliberately in a separate maintenance branch and reviewed like a normal code import.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Keep changes focused on cleanup, source organization, build reliability, documentation, and maintainability unless a separate feature direction is explicitly opened.
 
-## Scripts
+## Security
 
-The top-level `scripts/` folder is intentionally small:
-
-```text
-setup-linux.sh   install Linux native dependencies
-setup-windows.*  install MSYS2/MinGW64 native dependencies
-build.*          cargo build wrapper with debug/release/workspace/full modes
-check.*          cargo check wrapper with fast/core/workspace/compat/full modes
-fmt.*            cargo fmt wrapper
-status.*         cargo xtask status wrapper
-repair-windows.* Windows GNU native-build repair wrapper
-```
-
-Implementation helpers live under `scripts/lib/`.
+See [`SECURITY.md`](SECURITY.md). For upstream Sui protocol/security concerns, use official Sui channels.
 
 ## License and attribution
 
-This repository keeps Apache-2.0 licensing and upstream attribution. See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`docs/license_attribution.md`](docs/license_attribution.md).
+This repository preserves upstream license notices and attribution. See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`docs/license_attribution.md`](docs/license_attribution.md).
