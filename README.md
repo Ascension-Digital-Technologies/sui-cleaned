@@ -81,7 +81,7 @@ The default check focuses on the active workspace. Full all-target checks are in
 git clone <your-repo-url> sui-clean
 cd sui-clean
 
-scriptsepair-windows.bat
+scripts\repair-windows.bat
 . .\.cargo\env-windows.ps1
 cargo xtask check-layout
 cargo check
@@ -126,6 +126,18 @@ api, crypto, config, runtime, consensus, execution, network, protocol, storage
 
 `crates/execution/move-vm/` is the canonical location for embedded Move VM and Move execution sources.
 
+
+## Cargo.lock and CI
+
+The GitHub workflow runs `cargo check` without `--locked`. This is intentional for this cleaned workspace because large source-layout moves can make the checked-in `Cargo.lock` stale even when the Rust source is otherwise valid. For release branches, run:
+
+```powershell
+cargo check
+git status Cargo.lock
+```
+
+If `Cargo.lock` changed because of a real dependency graph update, commit it with the cleanup.
+
 ## Documentation
 
 Start here:
@@ -137,6 +149,7 @@ Start here:
 - [`docs/embedded_sources.md`](docs/embedded_sources.md) — embedded Sui/Move source placement
 - [`docs/windows_build.md`](docs/windows_build.md) — Windows build notes
 - [`docs/github.md`](docs/github.md) — GitHub workflow and contribution expectations
+- [`docs/ci.md`](docs/ci.md) — CI and Cargo.lock behavior
 - [`docs/license_attribution.md`](docs/license_attribution.md) — upstream license/attribution notes
 
 ## Relationship to upstream Sui
