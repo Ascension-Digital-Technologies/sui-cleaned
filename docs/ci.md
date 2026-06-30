@@ -54,7 +54,7 @@ It then sets `LIBCLANG_PATH` from `llvm-config --libdir`.
 
 ### Windows GNU
 
-The Windows GNU job installs MSYS2/MinGW64 compiler and libclang packages, adds `C:\msys64\mingw64\bin` and `C:\msys64\usr\bin` to PATH, and exports `LIBCLANG_PATH=C:\msys64\mingw64\bin` before running the Windows repair/build wrappers.
+The Windows GNU job installs MSYS2/MinGW compiler and libclang packages, searches common MSYS2/LLVM tool directories, adds the selected libclang directory plus `C:\msys64\usr\bin` to PATH, and exports the discovered `LIBCLANG_PATH` before running the Windows repair/build wrappers.
 
 ## Native libclang setup
 

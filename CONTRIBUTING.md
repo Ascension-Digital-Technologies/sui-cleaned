@@ -1,52 +1,73 @@
 # Contributing
 
-Thanks for improving Sui Clean.
+Thanks for improving **Sui Clean**. This repository is a cleaned-up Sui Rust workspace, so contributions should make the repo easier to navigate, build, audit, and maintain while preserving upstream compatibility.
 
-This repository is a cleaned-up Sui Rust workspace. Contributions should preserve that goal: make the repo easier to navigate, build, audit, and maintain without hiding upstream compatibility.
+## Contribution principles
 
-## Ground rules
-
-- Keep `crates/` limited to the approved domains: `api`, `crypto`, `config`, `runtime`, `consensus`, `execution`, `network`, `protocol`, and `storage`.
-- Keep `bench/`, `tests/`, and `tools/` at the root.
-- Do not recreate root-level `vendor/`, `upstream/`, or `manifests/` folders.
-- Put Move VM and Move execution sources under `crates/execution/move-vm/`.
+- Keep cleanup changes separate from behavior changes whenever possible.
 - Preserve upstream package names when Cargo compatibility requires them.
-- Keep cleanup changes separate from behavioral changes whenever possible.
+- Keep source ownership clear: no hidden vendor dumps, stale generated folders, or duplicate root-level source buckets.
+- Prefer small, reviewable PRs with explicit validation notes.
+- Do not remove upstream copyright notices, license headers, or attribution.
+
+## Layout rules
+
+- Keep `crates/` limited to the approved domains: `api`, `config`, `consensus`, `core`, `crypto`, `execution`, `metrics`, `network`, `protocol`, `runtime`, `storage`, and `types`.
+- Keep `bench/`, `tests/`, `tools/`, `scripts/`, and `docs/` at the root.
+- Do not recreate root-level `vendor/`, `third-party/`, `external/`, `upstream/`, or `manifests/` folders.
+- Keep Move VM and Move execution sources under `crates/execution/move/`.
+- Update documentation when changing folder layout, build scripts, or public workflow commands.
 
 ## Before opening a pull request
 
-Run:
+Run the static checks:
 
-```powershell
+```bash
+python scripts/check-layout.py
+python scripts/lib/audit-direct-paths.py
+python scripts/lib/audit-workspace-inheritance.py
+python scripts/lib/audit-crates-domains.py
+```
+
+Run the Rust checks that match the change:
+
+```bash
 cargo xtask check-layout
 cargo xtask status
-cargo check
+cargo xtask check-fast
 ```
 
 For domain-specific changes, also run one of:
 
-```powershell
+```bash
 cargo xtask check-domain api
 cargo xtask check-domain execution
 cargo xtask check-domain runtime
 cargo xtask check-domain storage
 ```
 
-On Windows GNU, run:
+On Windows GNU/MSYS2, prefer the wrappers:
 
 ```powershell
 scripts\repair-windows.bat
-cargo check
+scripts\check.bat fast
 ```
 
-## Pull request style
+For the main node build path:
 
-A good PR explains:
+```powershell
+cargo build -p sui-node
+```
 
-1. What was cleaned up or fixed.
-2. Whether source behavior changed.
-3. Which commands were run.
-4. Whether the change affects upstream sync paths.
+## Pull request checklist
+
+Every PR should explain:
+
+- what changed,
+- whether runtime behavior changed,
+- which commands were run,
+- whether the change affects upstream sync paths,
+- whether `Cargo.lock` changed and why.
 
 ## Commit style
 
@@ -54,21 +75,20 @@ Use clear, boring commit messages:
 
 ```text
 Clean runtime crate layout
-Fix Move VM path aliases
-Add xtask layout checks
-Document Windows bindgen setup
+Fix Move package TOML compatibility
+Add Windows GNU build notes
+Document GitHub release checklist
 ```
 
 ## Upstream sync changes
 
 If a PR updates embedded upstream Sui/Move code, include:
 
-- the upstream source or checkout used,
-- any repair scripts run,
-- the result of `cargo xtask check-layout`, and
-- the result of `cargo check`.
+- the upstream checkout or source reference used,
+- any repair or rewrite scripts run,
+- the result of `python scripts/check-layout.py`,
+- the result of the relevant Cargo check/build command.
 
+## Security-sensitive changes
 
-## Maintainer
-
-Maintainer: **Mario Vinciguerra** (`@mariovinci`).
+For changes touching crypto, consensus, networking, signatures, key handling, validator behavior, or build supply chain logic, be extra explicit in the PR description. Include threat-model notes when relevant, and avoid mixing those changes with cosmetic cleanup.

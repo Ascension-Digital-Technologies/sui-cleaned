@@ -1,0 +1,8 @@
+[package]
+name = "NestedDeps"
+
+[dependencies]
+MoveNursery = { git = "https://github.com/MystenLabs/sui", rev = "5d8a867", subdir = "crates/execution/move/language/stdlib/nursery" }
+
+[addresses]
+std = "0x1"

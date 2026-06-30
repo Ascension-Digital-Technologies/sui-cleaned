@@ -8,6 +8,6 @@ Allowed major roots:
 crates/ bench/ tests/ tools/ scripts/ docs/
 ```
 
-Repository automation lives under `crates/runtime/xtask/`. Generated metadata or audits should be written under `target/xtask-output/`, not a root `reports/` directory.
+Repository automation lives under `crates/runtime/apps/xtask/`. Generated metadata or audits should be written under `target/xtask-output/`, not a root `reports/` directory.
 
 Embedded Sui-compatible crates are kept directly in the cleaned domain layout.

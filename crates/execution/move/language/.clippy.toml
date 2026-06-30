@@ -1,0 +1,4 @@
+# Override root .clippy.toml — Move language crates keep their own lint profile
+# where zip_debug_eq/izip_debug_eq are not available.
+
+too-many-arguments-threshold = 20

@@ -1,16 +1,38 @@
-# Rust
+# Rust build output
 /target/
 **/target/
 Cargo.lock.bak
 
-# Editor / OS
-.DS_Store
-Thumbs.db
+# Profiling and coverage output
+*.profraw
+*.profdata
+*.gcda
+*.gcno
+lcov.info
+coverage/
+
+# Editor / IDE
 .idea/
 .vscode/
 *.swp
 *.swo
+*.tmp
+*.bak
 
-# Generated local output lives under target/.
-*.profraw
-*.profdata
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local logs and scratch files
+*.log
+*.trace
+.env
+.env.*
+!.env.example
+
+# Archives generated during local release testing
+*.zip
+*.tar
+*.tar.gz
+*.tgz

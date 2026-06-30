@@ -1,0 +1,85 @@
+[package]
+name = "sui-execution"
+version = "0.1.0"
+authors = ["Mysten Labs <eng@mystenlabs.com>"]
+description = "Multiplexer to choose between multiple versions of sui and move execution crates."
+license = "Apache-2.0"
+publish = false
+edition = "2024"
+
+[lints]
+workspace = true
+
+[dependencies]
+mysten-common.workspace = true
+mysten-metrics.workspace = true
+sui-protocol-config.workspace = true
+sui-types.workspace = true
+tracing.workspace = true
+
+move-binary-format.workspace = true
+move-bytecode-verifier-meter.workspace = true
+move-trace-format.workspace = true
+move-vm-config.workspace = true
+
+sui-adapter-latest = { path = "latest/sui-adapter" }
+sui-adapter-v0 = { path = "v0/sui-adapter" }
+sui-adapter-v1 = { path = "v1/sui-adapter" }
+sui-adapter-v2 = { path = "v2/sui-adapter" }
+sui-adapter-v3 = { path = "v3/sui-adapter" }
+# sui-adapter-$CUT = { path = "." }
+sui-move-natives-latest = { path = "latest/sui-move-natives" }
+sui-move-natives-v0 = { path = "v0/sui-move-natives" }
+sui-move-natives-v1 = { path = "v1/sui-move-natives" }
+sui-move-natives-v2 = { path = "v2/sui-move-natives" }
+sui-move-natives-v3 = { path = "v3/sui-move-natives" }
+# sui-move-natives-$CUT = { path = "." }
+sui-verifier-latest = { path = "latest/sui-verifier" }
+sui-verifier-v0 = { path = "v0/sui-verifier" }
+sui-verifier-v1 = { path = "v1/sui-verifier" }
+sui-verifier-v2 = { path = "v2/sui-verifier" }
+sui-verifier-v3 = { path = "v3/sui-verifier" }
+# sui-verifier-$CUT = { path = "." }
+
+move-abstract-interpreter-latest = { path = "../move/language/compiler/move-abstract-interpreter", package = "move-abstract-interpreter" }
+move-abstract-interpreter-v2 = { path = "../move/language/versions/v2/compiler" }
+move-abstract-interpreter-v3 = { path = "../move/language/versions/v3/compiler" }
+# move-abstract-interpreter-$CUT = { path = "move-vm/move/move-execution/$CUT/crates/move-abstract-interpreter" }
+move-bytecode-verifier-latest = { path = "../move/language/verifier/move-bytecode-verifier", package = "move-bytecode-verifier" }
+move-bytecode-verifier-v0 = { path = "../move/language/versions/v0/verifier" }
+move-bytecode-verifier-v1 = { path = "../move/language/versions/v1/verifier" }
+move-bytecode-verifier-v2 = { path = "../move/language/versions/v2/verifier" }
+move-bytecode-verifier-v3 = { path = "../move/language/versions/v3/verifier" }
+# move-bytecode-verifier-$CUT = { path = "move-vm/move/move-execution/$CUT/crates/move-bytecode-verifier" }
+move-vm-runtime-latest = { path = "../move/language/vm/move-vm-runtime", package = "move-vm-runtime" }
+move-vm-runtime-v0 = { path = "../move/language/versions/v0/vm/move-vm-runtime" }
+move-vm-runtime-v1 = { path = "../move/language/versions/v1/vm/move-vm-runtime" }
+move-vm-runtime-v2 = { path = "../move/language/versions/v2/vm/move-vm-runtime" }
+move-vm-runtime-v3 = { path = "../move/language/versions/v3/vm/move-vm-runtime" }
+# move-vm-runtime-$CUT = { path = "move-vm/move/move-execution/$CUT/crates/move-vm-runtime" }
+move-vm-types-v0 = { path = "../move/language/versions/v0/vm/move-vm-types" }
+move-vm-types-v1 = { path = "../move/language/versions/v1/vm/move-vm-types" }
+move-vm-types-v2 = { path = "../move/language/versions/v2/vm/move-vm-types" }
+move-vm-types-v3 = { path = "../move/language/versions/v3/vm/move-vm-types" }
+
+[dev-dependencies]
+cargo_metadata = "0.15.4"
+petgraph = "0.5.1"
+
+[features]
+default = []
+tracing = [
+    "sui-adapter-latest/tracing",
+    "sui-adapter-v0/tracing",
+    "sui-adapter-v1/tracing",
+  "sui-adapter-v2/tracing",
+  "sui-adapter-v3/tracing",
+#   "sui-adapter-$CUT/tracing",
+    "move-vm-runtime-v0/tracing",
+    "move-vm-runtime-v1/tracing",
+    "move-vm-runtime-latest/tracing",
+  "move-vm-runtime-v2/tracing",
+  "move-vm-runtime-v3/tracing",
+#   "move-vm-runtime-$CUT/tracing",
+    "move-vm-config/tracing",
+]

@@ -21,7 +21,7 @@ The official Sui project describes Sui as a smart contract platform focused on h
 ## Domain layout
 
 ```text
-api, crypto, config, runtime, consensus, execution, network, protocol, storage
+api, core, config, consensus, crypto, execution, metrics, network, protocol, runtime, storage, types
 ```
 
 ## Naming policy

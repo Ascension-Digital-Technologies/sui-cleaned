@@ -4,7 +4,7 @@ This repo includes thin build wrappers for common local and CI workflows.
 
 ## Windows GNU
 
-Use the wrapper scripts because native dependencies such as `librocksdb-sys` use bindgen and need MSYS2/MinGW64 `libclang.dll` and its dependent DLLs on `PATH`.
+Use the wrapper scripts because native dependencies such as `librocksdb-sys` use bindgen and need MSYS2/MinGW `libclang.dll` and its dependent DLLs on `PATH`.
 
 One-time setup on a Windows machine with MSYS2 installed:
 
@@ -12,15 +12,11 @@ One-time setup on a Windows machine with MSYS2 installed:
 scripts\setup-windows.bat
 ```
 
-Then build from the repository root or from inside `scripts/`; both forms are supported:
+Then build:
 
 ```powershell
+scripts\repair-windows.bat
 scripts\build.bat debug
-```
-
-```powershell
-cd scripts
-.\build.bat debug
 ```
 
 Build modes:
@@ -81,30 +77,10 @@ Linux installs:
 build-essential clang cmake libbz2-dev libclang-dev libsnappy-dev libzstd-dev llvm-dev pkg-config zlib1g-dev
 ```
 
-Windows installs MSYS2/MinGW64 packages:
+Windows installs MSYS2/MinGW packages:
 
 ```text
 mingw-w64-x86_64-gcc mingw-w64-x86_64-clang mingw-w64-x86_64-llvm mingw-w64-x86_64-pkgconf make diffutils pkgconf
 ```
 
 The workflow then exports `LIBCLANG_PATH` and updates `PATH` so Linux can load `libclang.so` and Windows can load `libclang.dll`.
-
-## Test and clean wrappers
-
-Windows:
-
-```powershell
-scripts	est.bat fast
-scripts	est.bat workspace
-scripts\clean.bat native
-```
-
-Linux/macOS:
-
-```bash
-scripts/test.sh fast
-scripts/test.sh workspace
-scripts/clean.sh native
-```
-
-The `fast` test mode compiles tests without running every test binary. This is useful for large workspaces where a full test run is intentionally slower than a build validation gate.

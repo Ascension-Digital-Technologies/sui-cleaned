@@ -1,30 +1,34 @@
 ## Summary
 
-Describe what this PR cleans up or fixes.
+Describe what this PR changes and why.
 
-## Type
+## Type of change
 
-- [ ] Repo layout cleanup
-- [ ] Build fix
+- [ ] Repository layout cleanup
+- [ ] Build or dependency fix
 - [ ] Documentation
-- [ ] Test/benchmark/tooling
+- [ ] Test, benchmark, or tooling
+- [ ] Security-sensitive change
 - [ ] Other
 
-## Validation
+## Behavior impact
 
-- [ ] `cargo xtask check-layout`
-- [ ] `cargo xtask status`
-- [ ] `cargo check`
-- [ ] Windows repair was run, if relevant
-
-## Notes
-
-Mention any path rewrites, package aliases, or Windows build changes.
+- [ ] No runtime behavior change
+- [ ] Runtime behavior changed intentionally
+- [ ] Not sure / needs reviewer attention
 
 ## Validation
 
+Check every command that was run:
+
+- [ ] `python scripts/check-layout.py`
+- [ ] `python scripts/lib/audit-direct-paths.py`
 - [ ] `cargo xtask check-layout`
 - [ ] `cargo xtask status`
-- [ ] `scripts/check.* fast`
-- [ ] `scripts/test.* fast`
-- [ ] Documentation updated when behavior/layout changed
+- [ ] `cargo xtask check-fast`
+- [ ] `cargo build -p sui-node`
+- [ ] Windows repair/check was run, if relevant
+
+## Notes for reviewers
+
+Mention path rewrites, package aliases, `Cargo.lock` changes, Windows build changes, or upstream sync concerns.

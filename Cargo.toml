@@ -4,159 +4,159 @@
 [workspace]
 resolver = "2"
 members = [
-    "crates/runtime/xtask",
-    "crates/api/json-rpc",
-    "crates/api/json-rpc-api",
-    "crates/api/light-client",
-    "crates/api/rpc-api",
-    "crates/api/rpc-resolver",
-    "crates/api/rpc-store",
-    "bench/rpc",
-    "bench/rpc-loadgen",
-    "bench/single-node",
-    "bench/sui-benchmark",
+    "crates/runtime/apps/xtask",
+    "crates/api/rpc/json",
+    "crates/api/rpc/json/api",
+    "crates/api/client/light",
+    "crates/api/rpc",
+    "crates/api/rpc/resolver",
+    "crates/api/rpc/store",
+    "bench/api/rpc",
+    "bench/api/rpc-loadgen",
+    "bench/runtime/single-node",
+    "bench/runtime/sui-benchmark",
     "crates/config/consensus",
-    "crates/consensus/core",
-    "crates/consensus/types",
+    "crates/consensus",
+    "crates/types/consensus",
     "crates/crypto/fork",
     "crates/crypto/keys",
     "crates/crypto/shared-crypto",
     "crates/crypto/tls",
-    "crates/execution/authority-core",
+    "crates/execution/authority",
     "crates/execution/framework",
-    "crates/execution/framework-snapshot",
-    "crates/execution/move-build",
-    "crates/execution/move-cli",
-    "crates/execution/package-resolver",
-    "crates/execution/sui-execution",
-    "crates/execution/sui-execution/cut",
-    "crates/execution/sui-execution/latest/sui-adapter",
-    "crates/execution/sui-execution/latest/sui-move-natives",
-    "crates/execution/sui-execution/latest/sui-verifier",
-    "crates/execution/sui-execution/v0/sui-adapter",
-    "crates/execution/sui-execution/v0/sui-move-natives",
-    "crates/execution/sui-execution/v0/sui-verifier",
-    "crates/execution/sui-execution/v1/sui-adapter",
-    "crates/execution/sui-execution/v1/sui-move-natives",
-    "crates/execution/sui-execution/v1/sui-verifier",
-    "crates/execution/sui-execution/v2/sui-adapter",
-    "crates/execution/sui-execution/v2/sui-move-natives",
-    "crates/execution/sui-execution/v2/sui-verifier",
-    "crates/execution/sui-execution/v3/sui-adapter",
-    "crates/execution/sui-execution/v3/sui-move-natives",
-    "crates/execution/sui-execution/v3/sui-verifier",
+    "crates/execution/framework/snapshot",
+    "crates/execution/move/tools/move-build",
+    "crates/execution/move/tools/move-cli",
+    "crates/execution/packages/resolver",
+    "crates/execution/sui",
+    "crates/execution/sui/cut",
+    "crates/execution/sui/latest/sui-adapter",
+    "crates/execution/sui/latest/sui-move-natives",
+    "crates/execution/sui/latest/sui-verifier",
+    "crates/execution/sui/v0/sui-adapter",
+    "crates/execution/sui/v0/sui-move-natives",
+    "crates/execution/sui/v0/sui-verifier",
+    "crates/execution/sui/v1/sui-adapter",
+    "crates/execution/sui/v1/sui-move-natives",
+    "crates/execution/sui/v1/sui-verifier",
+    "crates/execution/sui/v2/sui-adapter",
+    "crates/execution/sui/v2/sui-move-natives",
+    "crates/execution/sui/v2/sui-verifier",
+    "crates/execution/sui/v3/sui-adapter",
+    "crates/execution/sui/v3/sui-move-natives",
+    "crates/execution/sui/v3/sui-verifier",
     "crates/network/authority-aggregation",
-    "crates/network/mysten-network",
-    "crates/network/sui-network",
+    "crates/network/transport/mysten",
+    "crates/network/transport/sui",
     "crates/config/protocol",
-    "crates/config/protocol-macros",
-    "crates/protocol/json-rpc-types",
-    "crates/protocol/transaction-builder",
-    "crates/protocol/transaction-checks",
-    "crates/protocol/types",
-    "crates/storage/consistent-store",
+    "crates/config/protocol/macros",
+    "crates/types/rpc",
+    "crates/protocol/transactions/builder",
+    "crates/protocol/transactions/checks",
+    "crates/types/sui",
+    "crates/storage/key-value/consistent",
     "crates/storage/data-store",
-    "crates/storage/kvstore",
+    "crates/storage/key-value/kvstore",
     "crates/storage/snapshot",
-    "crates/storage/sui-storage",
-    "crates/storage/typed-store",
-    "crates/storage/typed-store-derive",
-    "crates/storage/typed-store-error",
-    "tests/consensus/simtests",
-    "tests/e2e",
+    "crates/storage",
+    "crates/storage/typed/store",
+    "crates/storage/typed/derive",
+    "crates/storage/typed/error",
+    "tests/consensus",
+    "tests/runtime/e2e",
     "tests/execution/adapter-transactional",
     "tests/execution/verifier-transactional",
     "tests/fixtures/transaction-builder",
-    "tests/fuzz/transaction-fuzzer",
-    "tests/json-rpc",
-    "tools/genesis-builder",
-    "tools/replay",
-    "tools/replay-2",
-    "tools/swarm",
-    "tools/swarm-config",
-    "tools/test-cluster",
-    "tools/test-validator",
-    "bench/network/anemo",
-    "crates/runtime/version",
-    "crates/runtime/common",
-    "crates/runtime/metrics",
-    "crates/runtime/service",
-    "crates/runtime/metrics/prometheus-closure",
+    "tests/fuzz",
+    "tests/api",
+    "tools/execution/genesis-builder",
+    "tools/execution/replay",
+    "tools/execution/replay-2",
+    "tools/network/swarm",
+    "tools/network/swarm-config",
+    "tools/network/test-cluster",
+    "tools/network/test-validator",
+    "bench/network",
+    "crates/core/version",
+    "crates/core/common",
+    "crates/metrics",
+    "crates/core/service",
+    "crates/metrics/prometheus-closure",
     "crates/runtime/simulator/simulacrum",
-    "crates/runtime/cli",
-    "crates/api/analytics-indexer",
-    "crates/api/analytics-indexer-derive",
+    "crates/runtime/apps/cli",
+    "crates/api/indexing/analytics/analytics-indexer",
+    "crates/api/indexing/analytics/analytics-indexer-derive",
     "crates/protocol/bridge",
-    "crates/protocol/bridge-schema",
-    "tests/e2e/cluster",
-    "crates/config/sui",
+    "crates/protocol/bridge/schema",
+    "tests/runtime/e2e/cluster",
+    "crates/config/node",
     "crates/protocol/cost",
-    "crates/api/data-ingestion",
+    "crates/api/ingestion/data-ingestion",
     "crates/config/defaults",
     "crates/protocol/display",
-    "crates/protocol/enum-compat",
-    "crates/api/faucet",
-    "crates/protocol/field-count",
-    "crates/protocol/field-count-derive",
+    "crates/types/enum-compat",
+    "crates/api/services/faucet",
+    "crates/types/field-count",
+    "crates/types/field-count/derive",
     "tests/execution/framework",
-    "crates/runtime/futures",
-    "crates/network/http",
-    "crates/api/indexer",
-    "crates/api/indexer-consistent-api",
-    "crates/storage/indexer-consistent-store",
-    "crates/api/indexer-framework",
-    "crates/storage/indexer-store-traits",
-    "crates/api/indexer-graphql",
-    "crates/api/indexer-jsonrpc",
-    "crates/api/indexer-metrics",
-    "crates/storage/indexer-object-store",
-    "crates/api/indexer-reader",
-    "crates/storage/indexer-schema",
+    "crates/core/futures",
+    "crates/network/transport/http",
+    "crates/api/indexing/core/indexer",
+    "crates/api/indexing/core/indexer-consistent-api",
+    "crates/storage/indexing/indexer-consistent-store",
+    "crates/api/indexing/core/indexer-framework",
+    "crates/storage/indexing/indexer-store-traits",
+    "crates/api/indexing/surfaces/indexer-graphql",
+    "crates/api/indexing/surfaces/indexer-jsonrpc",
+    "crates/metrics/indexing",
+    "crates/storage/indexing/indexer-object-store",
+    "crates/api/indexing/reader",
+    "crates/storage/indexing/indexer-schema",
     "crates/storage/inverted-index",
-    "crates/api/json",
-    "crates/api/kv-rpc",
-    "crates/protocol/macros",
-    "crates/config/metric-checker",
-    "crates/runtime/metrics/push-client",
-    "crates/execution/move-lsp",
+    "crates/api/serialization",
+    "crates/api/rpc/kv",
+    "crates/protocol/codegen/macros",
+    "crates/metrics/checker",
+    "crates/metrics/push-client",
+    "crates/execution/move/tools/move-lsp",
     "crates/protocol/name-service",
-    "crates/runtime/node",
-    "crates/api/open-rpc",
-    "crates/api/open-rpc-macros",
-    "crates/execution/package-alt",
-    "tools/package-dump",
-    "tools/package-management",
-    "crates/storage/pg-db",
-    "crates/protocol/proc-macros",
+    "crates/runtime/apps/node",
+    "crates/api/rpc/open",
+    "crates/api/rpc/open/macros",
+    "crates/execution/packages/alt",
+    "tools/packages/package-dump",
+    "tools/packages/package-management",
+    "crates/storage/sql/postgres",
+    "crates/protocol/codegen/proc-macros",
     "crates/network/proxy",
-    "crates/api/rosetta",
-    "crates/api/sdk",
+    "crates/api/services/rosetta",
+    "crates/api/client/sdk",
     "crates/runtime/simulator",
     "crates/execution/source-validation",
-    "crates/storage/sql-macro",
-    "tools/surfer",
-    "crates/api/synthetic-ingestion",
-    "crates/runtime/telemetry",
-    "tools/sui-tool",
+    "crates/storage/sql/macros",
+    "tools/dev/surfer",
+    "crates/api/ingestion/synthetic-ingestion",
+    "crates/metrics/telemetry",
+    "tools/dev/sui-tool",
     "tests/execution/transactional-runner",
     "tests/execution/upgrade-compatibility",
-    "crates/runtime/telemetry/subscribers",
-    "tools/x",
+    "crates/metrics/telemetry/subscribers",
+    "tools/dev/x",
 ]
 default-members = [
     "crates/config/consensus",
-    "crates/consensus/types",
-    "crates/consensus/core",
+    "crates/types/consensus",
+    "crates/consensus",
     "crates/crypto/shared-crypto",
     "crates/crypto/keys",
     "crates/crypto/tls",
     "crates/config/protocol",
-    "crates/config/protocol-macros",
-    "crates/protocol/types",
-    "crates/storage/typed-store-error",
-    "crates/storage/typed-store-derive",
-    "crates/storage/typed-store",
-    "crates/network/mysten-network",
+    "crates/config/protocol/macros",
+    "crates/types/sui",
+    "crates/storage/typed/error",
+    "crates/storage/typed/derive",
+    "crates/storage/typed/store",
+    "crates/network/transport/mysten",
 ]
 
 # Note: Sui-derived crates are embedded directly into the cleaned domain layout.
@@ -465,7 +465,7 @@ tokio-stream = { version = "0.1.14", features = ["sync", "net"] }
 tokio-tungstenite = { version = "0.26.2", features = ["connect"] }
 tokio-util = "0.7.18"
 toml = { version = "0.7.4", features = ["preserve_order"] }
-toml_edit = { version = "0.19.10" }
+toml_edit = { version = "0.22.24", features = ["serde"] }
 tonic = { version = "0.14.6", features = [
   "zstd",
   "transport",
@@ -528,7 +528,7 @@ shlex = "1.3.0"
 starlark = "0.13.0"
 
 # Move dependencies
-# Upstream Move workspace dependencies needed by crates/execution/move-vm.
+# Upstream Move workspace dependencies needed by crates/execution/move/language.
 append-only-vec = "0.1.7"
 aquamarine = "0.6.0"
 arbitrary = { version = "1.1.7", features = ["derive", "derive_arbitrary"] }
@@ -576,54 +576,54 @@ whoami = { version = "1.2.1" }
 inline_colorization = "0.1.6"
 lcov = "0.8.1"
 fs4 = { version = "0.13.1" }
-bytecode-interpreter-crypto = { path = "crates/execution/move-vm/move/crates/bytecode-interpreter-crypto" }
-enum-compat-util = { path = "crates/execution/move-vm/move/crates/enum-compat-util" }
-invalid-mutations = { path = "crates/execution/move-vm/move/crates/invalid-mutations" }
-module-generation = { path = "crates/execution/move-vm/move/crates/module-generation" }
-move-borrow-graph = { path = "crates/execution/move-vm/move/crates/move-borrow-graph" }
-move-bytecode-verifier = { path = "crates/execution/move-vm/move/crates/move-bytecode-verifier" }
+bytecode-interpreter-crypto = { path = "crates/execution/move/language/vm/bytecode-interpreter-crypto" }
+enum-compat-util = { path = "crates/execution/move/language/core/enum-compat-util" }
+invalid-mutations = { path = "crates/execution/move/language/testing/invalid-mutations" }
+module-generation = { path = "crates/execution/move/language/compiler/module-generation" }
+move-borrow-graph = { path = "crates/execution/move/language/compiler/move-borrow-graph" }
+move-bytecode-verifier = { path = "crates/execution/move/language/verifier/move-bytecode-verifier" }
 move-bytecode-verifier-analyzer = { path = "." }
-move-bytecode-viewer = { path = "crates/execution/move-vm/move/crates/move-bytecode-viewer" }
-move-coverage = { path = "crates/execution/move-vm/move/crates/move-coverage" }
-move-decompiler = { path = "crates/execution/move-vm/move/crates/move-decompiler" }
-move-docgen = { path = "crates/execution/move-vm/move/crates/move-docgen" }
-move-docgen-tests = { path = "crates/execution/move-vm/move/crates/move-docgen-tests" }
-move-ir-compiler = { path = "crates/execution/move-vm/move/crates/move-ir-compiler" }
-move-ir-to-bytecode = { path = "crates/execution/move-vm/move/crates/move-ir-to-bytecode" }
-move-ir-to-bytecode-syntax = { path = "crates/execution/move-vm/move/crates/move-ir-to-bytecode-syntax" }
-move-model = { path = "crates/execution/move-vm/move/crates/move-model" }
-move-model-2 = { path = "crates/execution/move-vm/move/crates/move-model-2" }
-move-proc-macros = { path = "crates/execution/move-vm/move/crates/move-proc-macros" }
-move-regex-borrow-graph = { path = "crates/execution/move-vm/move/crates/move-regex-borrow-graph" }
-move-stdlib = { path = "crates/execution/move-vm/move/crates/move-stdlib" }
+move-bytecode-viewer = { path = "crates/execution/move/language/tools/move-bytecode-viewer" }
+move-coverage = { path = "crates/execution/move/language/tools/move-coverage" }
+move-decompiler = { path = "crates/execution/move/language/tools/move-decompiler" }
+move-docgen = { path = "crates/execution/move/language/tools/move-docgen" }
+move-docgen-tests = { path = "crates/execution/move/language/testing/move-docgen-tests" }
+move-ir-compiler = { path = "crates/execution/move/language/compiler/move-ir-compiler" }
+move-ir-to-bytecode = { path = "crates/execution/move/language/compiler/move-ir-to-bytecode" }
+move-ir-to-bytecode-syntax = { path = "crates/execution/move/language/compiler/move-ir-to-bytecode-syntax" }
+move-model = { path = "crates/execution/move/language/compiler/move-model" }
+move-model-2 = { path = "crates/execution/move/language/compiler/move-model-2" }
+move-proc-macros = { path = "crates/execution/move/language/compiler/move-proc-macros" }
+move-regex-borrow-graph = { path = "crates/execution/move/language/compiler/move-regex-borrow-graph" }
+move-stdlib = { path = "crates/execution/move/language/stdlib" }
 move-stdlib-natives = { path = "." }
-move-vm-runtime = { path = "crates/execution/move-vm/move/crates/move-vm-runtime" }
-prover_bytecode = { path = "crates/execution/move-vm/move/crates/move-stackless-bytecode", package = "move-stackless-bytecode" }
-jsonrpc = { path = "crates/execution/move-vm/move/crates/jsonrpc" }
-move-binary-format = { path = "crates/execution/move-vm/move/crates/move-binary-format" }
-move-bytecode-utils = { path = "crates/execution/move-vm/move/crates/move-bytecode-utils" }
-move-bytecode-source-map = { path = "crates/execution/move-vm/move/crates/move-bytecode-source-map" }
-move-bytecode-verifier-meter = { path = "crates/execution/move-vm/move/crates/move-bytecode-verifier-meter" }
-move-cli = { path = "crates/execution/move-vm/move/crates/move-cli" }
-move-compiler = { path = "crates/execution/move-vm/move/crates/move-compiler" }
-move-core-types = { path = "crates/execution/move-vm/move/crates/move-core-types" }
-move-disassembler = { path = "crates/execution/move-vm/move/crates/move-disassembler" }
-move-package = { path = "crates/execution/move-vm/move/crates/move-package" }
-move-package-alt = { path = "crates/execution/move-vm/move/crates/move-package-alt" }
-move-package-alt-compilation = { path = "crates/execution/move-vm/move/crates/move-package-alt-compilation" }
-move-unit-test = { path = "crates/execution/move-vm/move/crates/move-unit-test" }
-move-vm-config = { path = "crates/execution/move-vm/move/crates/move-vm-config" }
-move-vm-profiler = { path = "crates/execution/move-vm/move/crates/move-vm-profiler" }
-move-command-line-common = { path = "crates/execution/move-vm/move/crates/move-command-line-common" }
-move-transactional-test-runner = { path = "crates/execution/move-vm/move/crates/move-transactional-test-runner" }
-move-ir-types = { path = "crates/execution/move-vm/move/crates/move-ir-types" }
-move-stackless-bytecode = { path = "crates/execution/move-vm/move/crates/move-stackless-bytecode" }
-move-stackless-bytecode-2 = { path = "crates/execution/move-vm/move/crates/move-stackless-bytecode-2" }
-move-symbol-pool = { path = "crates/execution/move-vm/move/crates/move-symbol-pool" }
-move-abstract-interpreter = { path = "crates/execution/move-vm/move/crates/move-abstract-interpreter" }
-move-abstract-stack = { path = "crates/execution/move-vm/move/crates/move-abstract-stack" }
-move-analyzer = { path = "crates/execution/move-vm/move/crates/move-analyzer" }
-move-trace-format = { path = "crates/execution/move-vm/move/crates/move-trace-format" }
+move-vm-runtime = { path = "crates/execution/move/language/vm/move-vm-runtime" }
+prover_bytecode = { path = "crates/execution/move/language/compiler/move-stackless-bytecode", package = "move-stackless-bytecode" }
+jsonrpc = { path = "crates/execution/move/language/api" }
+move-binary-format = { path = "crates/execution/move/language/core/move-binary-format" }
+move-bytecode-utils = { path = "crates/execution/move/language/core/move-bytecode-utils" }
+move-bytecode-source-map = { path = "crates/execution/move/language/core/move-bytecode-source-map" }
+move-bytecode-verifier-meter = { path = "crates/execution/move/language/verifier/move-bytecode-verifier-meter" }
+move-cli = { path = "crates/execution/move/language/tools/move-cli" }
+move-compiler = { path = "crates/execution/move/language/compiler/move-compiler" }
+move-core-types = { path = "crates/execution/move/language/core/move-core-types" }
+move-disassembler = { path = "crates/execution/move/language/tools/move-disassembler" }
+move-package = { path = "crates/execution/move/language/packages/move-package" }
+move-package-alt = { path = "crates/execution/move/language/packages/move-package-alt" }
+move-package-alt-compilation = { path = "crates/execution/move/language/packages/move-package-alt-compilation" }
+move-unit-test = { path = "crates/execution/move/language/testing/move-unit-test" }
+move-vm-config = { path = "crates/execution/move/language/vm/move-vm-config" }
+move-vm-profiler = { path = "crates/execution/move/language/vm/move-vm-profiler" }
+move-command-line-common = { path = "crates/execution/move/language/core/move-command-line-common" }
+move-transactional-test-runner = { path = "crates/execution/move/language/testing/move-transactional-test-runner" }
+move-ir-types = { path = "crates/execution/move/language/core/move-ir-types" }
+move-stackless-bytecode = { path = "crates/execution/move/language/compiler/move-stackless-bytecode" }
+move-stackless-bytecode-2 = { path = "crates/execution/move/language/compiler/move-stackless-bytecode-2" }
+move-symbol-pool = { path = "crates/execution/move/language/core/move-symbol-pool" }
+move-abstract-interpreter = { path = "crates/execution/move/language/compiler/move-abstract-interpreter" }
+move-abstract-stack = { path = "crates/execution/move/language/compiler/move-abstract-stack" }
+move-analyzer = { path = "crates/execution/move/language/tools/move-analyzer" }
+move-trace-format = { path = "crates/execution/move/language/core/move-trace-format" }
 fastcrypto = { git = "https://github.com/MystenLabs/fastcrypto", rev = "c6010b9080b00e29d039a48c08898d90c2c1cbdd" }
 fastcrypto-tbls = { git = "https://github.com/MystenLabs/fastcrypto", rev = "c6010b9080b00e29d039a48c08898d90c2c1cbdd" }
 fastcrypto-zkp = { git = "https://github.com/MystenLabs/fastcrypto", rev = "c6010b9080b00e29d039a48c08898d90c2c1cbdd", package = "fastcrypto-zkp" }
@@ -655,123 +655,123 @@ sui-crypto = { git = "https://github.com/MystenLabs/sui-rust-sdk.git", rev = "43
 sui-rpc = { git = "https://github.com/MystenLabs/sui-rust-sdk.git", rev = "43c5bc13202ae398b1519a3eead1f40df8ca277b", features = [ "unstable" ] }
 
 ### Workspace Members ###
-anemo-benchmark = { path = "bench/network/anemo" }
-bin-version = { path = "crates/runtime/version" }
-mysten-common = { path = "crates/runtime/common" }
-mysten-metrics = { path = "crates/runtime/metrics" }
-mysten-network = { path = "crates/network/mysten-network" }
-mysten-service = { path = "crates/runtime/service" }
-prometheus-closure-metric = { path = "crates/runtime/metrics/prometheus-closure" }
+anemo-benchmark = { path = "bench/network" }
+bin-version = { path = "crates/core/version" }
+mysten-common = { path = "crates/core/common" }
+mysten-metrics = { path = "crates/metrics" }
+mysten-network = { path = "crates/network/transport/mysten" }
+mysten-service = { path = "crates/core/service" }
+prometheus-closure-metric = { path = "crates/metrics/prometheus-closure" }
 shared-crypto = { path = "crates/crypto/shared-crypto" }
 simulacrum = { path = "crates/runtime/simulator/simulacrum" }
-sui = { path = "crates/runtime/cli" }
+sui = { path = "crates/runtime/apps/cli" }
 sui-adapter-transactional-tests = { path = "tests/execution/adapter-transactional" }
-sui-analytics-indexer = { path = "crates/api/analytics-indexer" }
-sui-analytics-indexer-derive = { path = "crates/api/analytics-indexer-derive" }
+sui-analytics-indexer = { path = "crates/api/indexing/analytics/analytics-indexer" }
+sui-analytics-indexer-derive = { path = "crates/api/indexing/analytics/analytics-indexer-derive" }
 sui-authority-aggregation = { path = "crates/network/authority-aggregation" }
-sui-benchmark = { path = "bench/sui-benchmark" }
+sui-benchmark = { path = "bench/runtime/sui-benchmark" }
 sui-bridge = { path = "crates/protocol/bridge" }
-sui-bridge-schema = { path = "crates/protocol/bridge-schema" }
-sui-cluster-test = { path = "tests/e2e/cluster" }
-sui-config = { path = "crates/config/sui" }
-sui-consistent-store = { path = "crates/storage/consistent-store" }
-sui-core = { path = "crates/execution/authority-core" }
+sui-bridge-schema = { path = "crates/protocol/bridge/schema" }
+sui-cluster-test = { path = "tests/runtime/e2e/cluster" }
+sui-config = { path = "crates/config/node" }
+sui-consistent-store = { path = "crates/storage/key-value/consistent" }
+sui-core = { path = "crates/execution/authority" }
 sui-cost = { path = "crates/protocol/cost" }
-sui-data-ingestion-core = { path = "crates/api/data-ingestion" }
+sui-data-ingestion-core = { path = "crates/api/ingestion/data-ingestion" }
 sui-data-store = { path = "crates/storage/data-store" }
 sui-default-config = { path = "crates/config/defaults" }
 sui-display = { path = "crates/protocol/display" }
-sui-e2e-tests = { path = "tests/e2e" }
-sui-enum-compat-util = { path = "crates/protocol/enum-compat" }
-sui-faucet = { path = "crates/api/faucet" }
-sui-field-count = { path = "crates/protocol/field-count" }
-sui-field-count-derive = { path = "crates/protocol/field-count-derive" }
-sui-futures = { path = "crates/runtime/futures" }
+sui-e2e-tests = { path = "tests/runtime/e2e" }
+sui-enum-compat-util = { path = "crates/types/enum-compat" }
+sui-faucet = { path = "crates/api/services/faucet" }
+sui-field-count = { path = "crates/types/field-count" }
+sui-field-count-derive = { path = "crates/types/field-count/derive" }
+sui-futures = { path = "crates/core/futures" }
 sui-framework = { path = "crates/execution/framework" }
-sui-framework-snapshot = { path = "crates/execution/framework-snapshot" }
+sui-framework-snapshot = { path = "crates/execution/framework/snapshot" }
 sui-framework-tests = { path = "tests/execution/framework" }
-sui-genesis-builder = { path = "tools/genesis-builder" }
-sui-http = { path = "crates/network/http" }
-sui-indexer-alt = { path = "crates/api/indexer" }
-sui-indexer-alt-consistent-api = { path = "crates/api/indexer-consistent-api" }
-sui-indexer-alt-consistent-store = { path = "crates/storage/indexer-consistent-store" }
-sui-indexer-alt-framework = { path = "crates/api/indexer-framework", default-features = false }
-sui-indexer-alt-framework-store-traits = { path = "crates/storage/indexer-store-traits" }
-sui-indexer-alt-graphql = { path = "crates/api/indexer-graphql" }
-sui-indexer-alt-jsonrpc = { path = "crates/api/indexer-jsonrpc" }
-sui-indexer-alt-metrics = { path = "crates/api/indexer-metrics" }
-sui-indexer-alt-reader = { path = "crates/api/indexer-reader" }
-sui-indexer-alt-schema = { path = "crates/storage/indexer-schema" }
-sui-indexer-alt-object-store = { path = "crates/storage/indexer-object-store" }
-sui-json = { path = "crates/api/json" }
-sui-json-rpc = { path = "crates/api/json-rpc" }
-sui-json-rpc-api = { path = "crates/api/json-rpc-api" }
-sui-json-rpc-types = { path = "crates/protocol/json-rpc-types" }
+sui-genesis-builder = { path = "tools/execution/genesis-builder" }
+sui-http = { path = "crates/network/transport/http" }
+sui-indexer-alt = { path = "crates/api/indexing/core/indexer" }
+sui-indexer-alt-consistent-api = { path = "crates/api/indexing/core/indexer-consistent-api" }
+sui-indexer-alt-consistent-store = { path = "crates/storage/indexing/indexer-consistent-store" }
+sui-indexer-alt-framework = { path = "crates/api/indexing/core/indexer-framework", default-features = false }
+sui-indexer-alt-framework-store-traits = { path = "crates/storage/indexing/indexer-store-traits" }
+sui-indexer-alt-graphql = { path = "crates/api/indexing/surfaces/indexer-graphql" }
+sui-indexer-alt-jsonrpc = { path = "crates/api/indexing/surfaces/indexer-jsonrpc" }
+sui-indexer-alt-metrics = { path = "crates/metrics/indexing" }
+sui-indexer-alt-reader = { path = "crates/api/indexing/reader" }
+sui-indexer-alt-schema = { path = "crates/storage/indexing/indexer-schema" }
+sui-indexer-alt-object-store = { path = "crates/storage/indexing/indexer-object-store" }
+sui-json = { path = "crates/api/serialization" }
+sui-json-rpc = { path = "crates/api/rpc/json" }
+sui-json-rpc-api = { path = "crates/api/rpc/json/api" }
+sui-json-rpc-types = { path = "crates/types/rpc" }
 sui-keys = { path = "crates/crypto/keys" }
 sui-inverted-index = { path = "crates/storage/inverted-index" }
-sui-kvstore = { path = "crates/storage/kvstore" }
-sui-kv-rpc = { path = "crates/api/kv-rpc" }
-sui-light-client = { path = "crates/api/light-client" }
-sui-macros = { path = "crates/protocol/macros" }
-sui-metric-checker = { path = "crates/config/metric-checker" }
-sui-metrics-push-client = { path = "crates/runtime/metrics/push-client" }
-sui-move = { path = "crates/execution/move-cli" }
-sui-move-build = { path = "crates/execution/move-build" }
-sui-move-lsp = { path = "crates/execution/move-lsp" }
+sui-kvstore = { path = "crates/storage/key-value/kvstore" }
+sui-kv-rpc = { path = "crates/api/rpc/kv" }
+sui-light-client = { path = "crates/api/client/light" }
+sui-macros = { path = "crates/protocol/codegen/macros" }
+sui-metric-checker = { path = "crates/metrics/checker" }
+sui-metrics-push-client = { path = "crates/metrics/push-client" }
+sui-move = { path = "crates/execution/move/tools/move-cli" }
+sui-move-build = { path = "crates/execution/move/tools/move-build" }
+sui-move-lsp = { path = "crates/execution/move/tools/move-lsp" }
 sui-name-service = { path = "crates/protocol/name-service" }
-sui-network = { path = "crates/network/sui-network" }
-sui-node = { path = "crates/runtime/node" }
-sui-open-rpc = { path = "crates/api/open-rpc" }
-sui-open-rpc-macros = { path = "crates/api/open-rpc-macros" }
-sui-package-dump = { path = "tools/package-dump" }
-sui-package-alt = { path = "crates/execution/package-alt" }
-sui-package-management = { path = "tools/package-management" }
-sui-package-resolver = { path = "crates/execution/package-resolver" }
-sui-pg-db = { path = "crates/storage/pg-db" }
-sui-proc-macros = { path = "crates/protocol/proc-macros" }
+sui-network = { path = "crates/network/transport/sui" }
+sui-node = { path = "crates/runtime/apps/node" }
+sui-open-rpc = { path = "crates/api/rpc/open" }
+sui-open-rpc-macros = { path = "crates/api/rpc/open/macros" }
+sui-package-dump = { path = "tools/packages/package-dump" }
+sui-package-alt = { path = "crates/execution/packages/alt" }
+sui-package-management = { path = "tools/packages/package-management" }
+sui-package-resolver = { path = "crates/execution/packages/resolver" }
+sui-pg-db = { path = "crates/storage/sql/postgres" }
+sui-proc-macros = { path = "crates/protocol/codegen/proc-macros" }
 sui-protocol-config = { path = "crates/config/protocol" }
-sui-protocol-config-macros = { path = "crates/config/protocol-macros" }
+sui-protocol-config-macros = { path = "crates/config/protocol/macros" }
 sui-proxy = { path = "crates/network/proxy" }
-sui-replay = { path = "tools/replay" }
-sui-replay-2 = { path = "tools/replay-2" }
-sui-rosetta = { path = "crates/api/rosetta" }
-sui-rpc-loadgen = { path = "bench/rpc-loadgen" }
-sui-sdk = { path = "crates/api/sdk" }
+sui-replay = { path = "tools/execution/replay" }
+sui-replay-2 = { path = "tools/execution/replay-2" }
+sui-rosetta = { path = "crates/api/services/rosetta" }
+sui-rpc-loadgen = { path = "bench/api/rpc-loadgen" }
+sui-sdk = { path = "crates/api/client/sdk" }
 sui-simulator = { path = "crates/runtime/simulator" }
 sui-snapshot = { path = "crates/storage/snapshot" }
 sui-source-validation = { path = "crates/execution/source-validation" }
-sui-sql-macro = { path = "crates/storage/sql-macro" }
-sui-storage = { path = "crates/storage/sui-storage" }
-sui-surfer = { path = "tools/surfer" }
-sui-swarm = { path = "tools/swarm" }
-sui-swarm-config = { path = "tools/swarm-config" }
-sui-synthetic-ingestion = { path = "crates/api/synthetic-ingestion" }
-sui-telemetry = { path = "crates/runtime/telemetry" }
+sui-sql-macro = { path = "crates/storage/sql/macros" }
+sui-storage = { path = "crates/storage" }
+sui-surfer = { path = "tools/dev/surfer" }
+sui-swarm = { path = "tools/network/swarm" }
+sui-swarm-config = { path = "tools/network/swarm-config" }
+sui-synthetic-ingestion = { path = "crates/api/ingestion/synthetic-ingestion" }
+sui-telemetry = { path = "crates/metrics/telemetry" }
 sui-test-transaction-builder = { path = "tests/fixtures/transaction-builder" }
-sui-test-validator = { path = "tools/test-validator" }
+sui-test-validator = { path = "tools/network/test-validator" }
 sui-tls = { path = "crates/crypto/tls" }
-sui-rpc-api = { path = "crates/api/rpc-api" }
-sui-rpc-resolver = { path = "crates/api/rpc-resolver" }
-sui-rpc-store = { path = "crates/api/rpc-store" }
-sui-tool = { path = "tools/sui-tool" }
-sui-transaction-builder = { path = "crates/protocol/transaction-builder" }
-sui-transaction-checks = { path = "crates/protocol/transaction-checks" }
+sui-rpc-api = { path = "crates/api/rpc" }
+sui-rpc-resolver = { path = "crates/api/rpc/resolver" }
+sui-rpc-store = { path = "crates/api/rpc/store" }
+sui-tool = { path = "tools/dev/sui-tool" }
+sui-transaction-builder = { path = "crates/protocol/transactions/builder" }
+sui-transaction-checks = { path = "crates/protocol/transactions/checks" }
 sui-transactional-test-runner = { path = "tests/execution/transactional-runner" }
-sui-types = { path = "crates/protocol/types" }
+sui-types = { path = "crates/types/sui" }
 sui-upgrade-compatibility-transactional-tests = { path = "tests/execution/upgrade-compatibility" }
 sui-verifier-transactional-tests = { path = "tests/execution/verifier-transactional" }
-telemetry-subscribers = { path = "crates/runtime/telemetry/subscribers" }
-test-cluster = { path = "tools/test-cluster" }
-transaction-fuzzer = { path = "tests/fuzz/transaction-fuzzer" }
-typed-store = { path = "crates/storage/typed-store" }
-typed-store-error = { path = "crates/storage/typed-store-error" }
-x = { path = "tools/x" }
+telemetry-subscribers = { path = "crates/metrics/telemetry/subscribers" }
+test-cluster = { path = "tools/network/test-cluster" }
+transaction-fuzzer = { path = "tests/fuzz" }
+typed-store = { path = "crates/storage/typed/store" }
+typed-store-error = { path = "crates/storage/typed/error" }
+x = { path = "tools/dev/x" }
 consensus-config = { path = "crates/config/consensus" }
-consensus-core = { path = "crates/consensus/core" }
-consensus-types = { path = "crates/consensus/types" }
-consensus-simtests = { path = "tests/consensus/simtests" }
+consensus-core = { path = "crates/consensus" }
+consensus-types = { path = "crates/types/consensus" }
+consensus-simtests = { path = "tests/consensus" }
 
-sui-execution = { path = "crates/execution/sui-execution" }
+sui-execution = { path = "crates/execution/sui" }
 # sui-move-natives = { path = ".", package = "sui-move-natives-latest" }
 # sui-adapter = { path = ".", package = "sui-adapter-latest" }
 # sui-verifier = { path = ".", package = "sui-verifier-latest" }

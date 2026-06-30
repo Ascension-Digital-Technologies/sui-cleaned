@@ -43,8 +43,8 @@ move-transactional-test-runner.workspace = true
 telemetry-subscribers.workspace = true
 iso8601.workspace = true
 
-move-stdlib = { path = "../../../crates/execution/move-vm/move/crates/move-stdlib" }
-move-vm-runtime = { path = "../../../crates/execution/move-vm/move/crates/move-vm-runtime" }
+move-stdlib = { path = "../../../crates/execution/move/language/stdlib" }
+move-vm-runtime = { path = "../../../crates/execution/move/language/vm/move-vm-runtime" }
 
 simulacrum.workspace = true
 sui-rpc-api.workspace = true

@@ -43,13 +43,7 @@ frequency = "always"
 [env]
 "CXXFLAGS_x86_64_pc_windows_gnu" = { value = "-include cstdint", force = false }
 "CXXFLAGS_x86_64-pc-windows-gnu" = { value = "-include cstdint", force = false }
-# Windows GNU bindgen/libclang fix. bindgen needs libclang to build librocksdb-sys.
-# These defaults match the MSYS2 mingw64 layout used by the Windows build scripts.
-"LIBCLANG_PATH" = { value = "C:\\msys64\\mingw64\\bin", force = false }
-"CLANG_PATH" = { value = "C:\\msys64\\mingw64\\bin\\clang.exe", force = false }
+# Windows GNU bindgen/libclang fix. The wrapper scripts discover MSYS2/LLVM dynamically
+# and export machine-specific clang paths in-process before running Cargo.
 "BINDGEN_EXTRA_CLANG_ARGS_x86_64_pc_windows_gnu" = { value = "--target=x86_64-w64-windows-gnu", force = false }
 "BINDGEN_EXTRA_CLANG_ARGS_x86_64-pc-windows-gnu" = { value = "--target=x86_64-w64-windows-gnu", force = false }
-
-
-
-

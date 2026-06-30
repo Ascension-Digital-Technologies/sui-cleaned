@@ -1,11 +1,11 @@
-# GitHub workflow
+# GitHub Repository Guide
 
-This repository is prepared for normal GitHub usage with issue templates, a pull request template, and a starter CI workflow.
+This repository is prepared for normal GitHub usage with CI, issue templates, a pull request template, dependency-update configuration, and community health files.
 
 ## Recommended repository description
 
 ```text
-A cleaned-up, domain-organized Rust workspace for Sui.
+A cleaned, domain-organized Rust workspace for Sui-compatible source code.
 ```
 
 ## Recommended topics
@@ -14,28 +14,50 @@ A cleaned-up, domain-organized Rust workspace for Sui.
 sui, rust, blockchain, move-vm, cleaned-repo, monorepo, workspace, crypto
 ```
 
+## Recommended settings
+
+- Enable branch protection on `main`.
+- Require the `Layout and metadata` CI job before merging.
+- Require Linux and Windows GNU checks for build-affecting PRs.
+- Enable private vulnerability reporting if the repository is public.
+- Disable force pushes on protected branches.
+- Require pull requests for changes to `Cargo.lock`, `.github/workflows/`, and build scripts.
+
 ## Pull request checks
 
 Before opening a PR, run:
 
-```powershell
+```bash
+python scripts/check-layout.py
 cargo xtask check-layout
 cargo xtask status
-cargo check
+cargo xtask check-fast
 ```
 
 For Windows GNU builds, run:
 
 ```powershell
 scripts\repair-windows.bat
-cargo check
+scripts\check.bat fast
+```
+
+For the main node build path, run:
+
+```powershell
+cargo build -p sui-node
 ```
 
 ## CI expectations
 
-The starter CI focuses on layout and default `cargo check`. It intentionally does not pass `--locked` because this cleaned workspace may need to refresh `Cargo.lock` after domain moves or dependency-path cleanup. When dependency versions actually change, run `cargo check` locally and commit the updated `Cargo.lock`.
+The starter CI focuses on repository hygiene and default build health:
 
-The full all-targets gate is intentionally left as a manual/local workflow because it is much larger and slower.
+- static layout validation,
+- `cargo xtask check-layout`,
+- `cargo xtask status`,
+- Linux fast check,
+- Windows GNU fast check.
+
+The full all-targets gate is intentionally left as a manual/local workflow because it can pull in many test, benchmark, indexer, bridge, faucet, Rosetta, analyzer, fuzz, and Move targets.
 
 ## Branch naming
 
@@ -43,20 +65,28 @@ Suggested branch names:
 
 ```text
 cleanup/runtime-layout
-fix/move-vm-paths
+fix/move-package-toml
+fix/windows-gnu-build
 docs/github-readiness
-ci/windows-gnu-build
+ci/windows-gnu-check
 ```
 
-## PR labels
-
-Suggested labels:
+## Suggested labels
 
 ```text
+bug
+build
 cleanup
 docs
-build
+enhancement
+needs-triage
+security
 windows
-layout
+linux
 cargo
+layout
 ```
+
+## Release notes
+
+Use [`docs/release.md`](release.md) before publishing a source archive or GitHub release.

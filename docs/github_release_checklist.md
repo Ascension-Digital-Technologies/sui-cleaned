@@ -26,7 +26,7 @@ cargo xtask check-domain storage
 - `crates/` only contains approved domain folders.
 - `bench/`, `tests/`, and `tools/` are root-level folders.
 - No root `vendor/`, `upstream/`, or `manifests/` folders exist.
-- `crates/execution/move-vm/` exists and replaces old external-crates paths.
+- `crates/execution/move/language/vm/` exists and replaces old external-crates paths.
 - `LICENSE` and `NOTICE` are present.
 - `docs/license_attribution.md` is present.
 - GitHub templates are present under `.github/`.

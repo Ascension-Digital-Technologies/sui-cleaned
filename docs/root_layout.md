@@ -12,12 +12,12 @@ sui-clean/
   docs/       human-maintained documentation
 ```
 
-There is no root `vendor/`, `upstream/`, `manifests/`, `reports/`, or root `xtask/` folder. Repository automation lives in `crates/runtime/xtask/`.
+There is no root `vendor/`, `upstream/`, `manifests/`, `reports/`, or root `xtask/` folder. Repository automation lives in `crates/runtime/apps/xtask/`.
 
 Embedded upstream Sui and Move code is placed into the same cleaned domain layout as the rest of the workspace. The canonical Move location is:
 
 ```text
-crates/execution/move-vm/
+crates/execution/move/language/vm/
 ```
 
 The only allowed top-level folders under `crates/` are listed in `docs/crates_domains.md`.

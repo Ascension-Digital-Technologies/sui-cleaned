@@ -1,34 +1,22 @@
 # Support
 
-This repository is an unofficial cleaned-up Rust workspace for Sui. It is maintained as a source-layout and developer-experience cleanup, not as an official Mysten Labs or Sui Foundation release channel.
+Sui Clean is an unofficial cleaned workspace. Support is focused on repository layout, local builds, GitHub workflows, and compatibility fixes introduced by this cleaned repository.
 
-## Where to ask questions
+## Before opening an issue
 
-- For issues specific to this cleaned repository layout, open a GitHub issue in this repository.
-- For upstream Sui protocol behavior, official releases, validators, ecosystem questions, or production network support, use the official Sui resources linked from the upstream repository and documentation.
+1. Read [`README.md`](README.md) and [`docs/build.md`](docs/build.md).
+2. On Windows, run `scripts\repair-windows.bat` before direct Cargo commands.
+3. Include the exact command, platform, Rust version, and the final error output.
 
-## Maintainer
+## Good issue topics
 
-Maintainer: **Mario Vinciguerra** (`@mariovinci`)
+- build failures in this cleaned workspace,
+- broken local path dependencies,
+- Windows GNU/MSYS2 setup problems,
+- CI workflow failures,
+- documentation gaps,
+- layout or repository hygiene problems.
 
-## Good issue reports include
+## Upstream topics
 
-- Operating system and shell.
-- Rust toolchain version.
-- The command you ran.
-- The first real error message, not only the full dependency build log.
-- Whether the issue happens with `cargo check`, `scripts/check.*`, or GitHub Actions.
-
-## Native build notes
-
-This workspace contains Rust crates that build native dependencies such as RocksDB and use `bindgen`, which requires `libclang` at build time. Use the provided setup and build scripts before filing a native-build issue:
-
-```powershell
-scripts\setup-windows.bat
-scripts\build.bat debug
-```
-
-```bash
-scripts/setup-linux.sh
-scripts/build.sh debug
-```
+Use official upstream Sui channels for production network issues, protocol behavior, wallet behavior, validator releases, or upstream security vulnerabilities.

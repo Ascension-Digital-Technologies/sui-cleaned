@@ -9159,7 +9159,7 @@ dependencies = [
  "thiserror 1.0.69",
  "tokio",
  "toml 0.7.4",
- "toml_edit 0.19.10",
+ "toml_edit 0.22.24",
  "tracing",
  "tracing-subscriber",
  "walkdir",
@@ -9188,7 +9188,7 @@ dependencies = [
  "serde_yaml 0.8.26",
  "tempfile",
  "tokio",
- "toml_edit 0.19.10",
+ "toml_edit 0.22.24",
  "tracing",
  "vfs",
 ]
@@ -14101,7 +14101,7 @@ dependencies = [
  "tikv-jemalloc-ctl",
  "tokio",
  "toml 0.7.4",
- "toml_edit 0.19.10",
+ "toml_edit 0.22.24",
  "tracing",
  "url",
 ]
@@ -14945,7 +14945,7 @@ dependencies = [
  "tempfile",
  "thiserror 1.0.69",
  "toml 0.7.4",
- "toml_edit 0.19.10",
+ "toml_edit 0.22.24",
 ]
 
 [[package]]
@@ -18466,6 +18466,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "17b4795ff5edd201c7cd6dca065ae59972ce77d1b80fa0a84d94950ece7d1474"
 dependencies = [
  "indexmap 2.8.0",
+ "serde",
+ "serde_spanned 0.6.8",
  "toml_datetime 0.6.8",
  "winnow 0.7.15",
 ]

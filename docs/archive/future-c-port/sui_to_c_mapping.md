@@ -13,7 +13,7 @@ This document is the bridge between the cleaned Sui reference tree and the low-l
 | `execution/framework` | `src/execution/natives/` | Sui framework native function parity |
 | `storage/sui-storage` | `src/state/` + `src/checkpoint/` | Durable object/effects/checkpoint storage parity |
 | `network/sui-network` | `src/net/` | Handshake, transaction submission, state sync, consensus transport parity |
-| `tools/replay` | `tests/differential/` | Captured upstream traces replay to identical outputs |
+| `tools/execution/replay` | `tests/differential/` | Captured upstream traces replay to identical outputs |
 
 ## C repo shape
 

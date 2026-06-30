@@ -1,0 +1,47 @@
+name: Build failure
+description: Report a failed local or CI build in this cleaned workspace
+title: "build: "
+labels: ["build", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a build issue. Please include the exact command and the final error block.
+  - type: input
+    id: command
+    attributes:
+      label: Command
+      placeholder: cargo build -p sui-node
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Windows GNU / MSYS2
+        - Windows MSVC
+        - Linux
+        - macOS
+        - GitHub Actions
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: rust_version
+    attributes:
+      label: Rust version
+      placeholder: rustc 1.92.0
+  - type: textarea
+    id: output
+    attributes:
+      label: Final error output
+      description: Paste the final error section, not the entire dependency compile log unless needed.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: attempted
+    attributes:
+      label: What did you try?
+      description: Mention setup scripts, repair scripts, clean builds, or dependency changes.

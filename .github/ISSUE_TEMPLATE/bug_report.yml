@@ -1,35 +1,39 @@
 name: Bug report
-description: Report a build, layout, or compatibility bug in the cleaned Sui workspace
+description: Report a layout, script, compatibility, or repository bug in the cleaned Sui workspace
 title: "bug: "
-labels: ["bug"]
+labels: ["bug", "needs-triage"]
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for reporting an issue. Please include the command that failed and the relevant output.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
   - type: input
     id: command
     attributes:
       label: Failing command
       placeholder: cargo check
-    validations:
-      required: true
   - type: textarea
     id: output
     attributes:
       label: Error output
       render: text
-    validations:
-      required: true
   - type: dropdown
     id: platform
     attributes:
       label: Platform
       options:
-        - Windows GNU
+        - Windows GNU / MSYS2
         - Windows MSVC
         - Linux
         - macOS
+        - GitHub Actions
         - Other
     validations:
       required: true

@@ -6,7 +6,7 @@ Important locations:
 
 ```text
 crates/<domain>/...             Sui-compatible Rust crates distributed by domain
-crates/execution/move-vm/       Move VM and Move execution sources
+crates/execution/move/language/vm/       Move VM and Move execution sources
 ```
 
 There is no root `vendor/`, `upstream/`, or `manifests/` folder, and there are no sync scripts in this repository.

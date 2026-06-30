@@ -1,0 +1,295 @@
+old_path	new_path	package
+bench/rpc	bench/api/rpc	sui-rpc-benchmark
+bench/rpc-loadgen	bench/api/rpc-loadgen	sui-rpc-loadgen
+bench/single-node	bench/runtime/single-node	sui-single-node-benchmark
+bench/sui-benchmark	bench/runtime/sui-benchmark	sui-benchmark
+crates/api/client/light-client	crates/api/client/light	sui-light-client
+crates/api/rpc/json-rpc	crates/api/rpc/json	sui-json-rpc
+crates/api/rpc/json-rpc-api	crates/api/rpc/json/api	sui-json-rpc-api
+crates/api/rpc/kv-rpc	crates/api/rpc/kv	sui-kv-rpc
+crates/api/rpc/open-rpc	crates/api/rpc/open	sui-open-rpc
+crates/api/rpc/open-rpc-macros	crates/api/rpc/open/macros	sui-open-rpc-macros
+crates/api/rpc/rpc-api	crates/api/rpc	sui-rpc-api
+crates/api/rpc/rpc-resolver	crates/api/rpc/resolver	sui-rpc-resolver
+crates/api/rpc/rpc-store	crates/api/rpc/store	sui-rpc-store
+crates/config/domains/consensus-config	crates/config/consensus	consensus-config
+crates/config/domains/protocol-config	crates/config/protocol	sui-protocol-config
+crates/config/domains/protocol-config-macros	crates/config/protocol/macros	sui-protocol-config-macros
+crates/config/node/sui-config	crates/config/node	sui-config
+crates/config/runtime/default-config	crates/config/defaults	sui-default-config
+crates/consensus/engine/core	crates/consensus	consensus-core
+crates/execution/authority/core	crates/execution/authority	sui-core
+crates/execution/frameworks/framework	crates/execution/framework	sui-framework
+crates/execution/frameworks/framework-snapshot	crates/execution/framework/snapshot	sui-framework-snapshot
+crates/execution/move/vm/move	crates/execution/move/language	
+crates/execution/move/vm/move/crates/bytecode-interpreter-crypto	crates/execution/move/language/vm/bytecode-interpreter-crypto	bytecode-interpreter-crypto
+crates/execution/move/vm/move/crates/bytecode-verifier-libfuzzer	crates/execution/move/language/fuzz/bytecode-verifier-libfuzzer	bytecode-verifier-libfuzzer
+crates/execution/move/vm/move/crates/bytecode-verifier-prop-tests	crates/execution/move/language/fuzz/bytecode-verifier-prop-tests	bytecode-verifier-prop-tests
+crates/execution/move/vm/move/crates/bytecode-verifier-tests	crates/execution/move/language/testing/bytecode-verifier-tests	bytecode-verifier-tests
+crates/execution/move/vm/move/crates/bytecode-verifier-transactional-tests	crates/execution/move/language/testing/bytecode-verifier-transactional-tests	bytecode-verifier-transactional-tests
+crates/execution/move/vm/move/crates/enum-compat-util	crates/execution/move/language/core/enum-compat-util	enum-compat-util
+crates/execution/move/vm/move/crates/invalid-mutations	crates/execution/move/language/testing/invalid-mutations	invalid-mutations
+crates/execution/move/vm/move/crates/jsonrpc	crates/execution/move/language/api	jsonrpc
+crates/execution/move/vm/move/crates/language-benchmarks	crates/execution/move/language/benchmarks	language-benchmarks
+crates/execution/move/vm/move/crates/module-generation	crates/execution/move/language/compiler/module-generation	module-generation
+crates/execution/move/vm/move/crates/move-abstract-interpreter	crates/execution/move/language/compiler/move-abstract-interpreter	move-abstract-interpreter
+crates/execution/move/vm/move/crates/move-abstract-stack	crates/execution/move/language/compiler/move-abstract-stack	move-abstract-stack
+crates/execution/move/vm/move/crates/move-analyzer	crates/execution/move/language/tools/move-analyzer	move-analyzer
+crates/execution/move/vm/move/crates/move-binary-format	crates/execution/move/language/core/move-binary-format	move-binary-format
+crates/execution/move/vm/move/crates/move-borrow-graph	crates/execution/move/language/compiler/move-borrow-graph	move-borrow-graph
+crates/execution/move/vm/move/crates/move-bytecode-source-map	crates/execution/move/language/core/move-bytecode-source-map	move-bytecode-source-map
+crates/execution/move/vm/move/crates/move-bytecode-utils	crates/execution/move/language/core/move-bytecode-utils	move-bytecode-utils
+crates/execution/move/vm/move/crates/move-bytecode-verifier	crates/execution/move/language/verifier/move-bytecode-verifier	move-bytecode-verifier
+crates/execution/move/vm/move/crates/move-bytecode-verifier-meter	crates/execution/move/language/verifier/move-bytecode-verifier-meter	move-bytecode-verifier-meter
+crates/execution/move/vm/move/crates/move-bytecode-viewer	crates/execution/move/language/tools/move-bytecode-viewer	move-bytecode-viewer
+crates/execution/move/vm/move/crates/move-cli	crates/execution/move/language/tools/move-cli	move-cli
+crates/execution/move/vm/move/crates/move-command-line-common	crates/execution/move/language/core/move-command-line-common	move-command-line-common
+crates/execution/move/vm/move/crates/move-compiler	crates/execution/move/language/compiler/move-compiler	move-compiler
+crates/execution/move/vm/move/crates/move-compiler-transactional-tests	crates/execution/move/language/testing/move-compiler-transactional-tests	move-compiler-transactional-tests
+crates/execution/move/vm/move/crates/move-core-types	crates/execution/move/language/core/move-core-types	move-core-types
+crates/execution/move/vm/move/crates/move-coverage	crates/execution/move/language/tools/move-coverage	move-coverage
+crates/execution/move/vm/move/crates/move-decompiler	crates/execution/move/language/tools/move-decompiler	move-decompiler
+crates/execution/move/vm/move/crates/move-disassembler	crates/execution/move/language/tools/move-disassembler	move-disassembler
+crates/execution/move/vm/move/crates/move-docgen	crates/execution/move/language/tools/move-docgen	move-docgen
+crates/execution/move/vm/move/crates/move-docgen-tests	crates/execution/move/language/testing/move-docgen-tests	move-docgen-tests
+crates/execution/move/vm/move/crates/move-ir-compiler	crates/execution/move/language/compiler/move-ir-compiler	move-ir-compiler
+crates/execution/move/vm/move/crates/move-ir-compiler-transactional-tests	crates/execution/move/language/testing/move-ir-compiler-transactional-tests	move-ir-compiler-transactional-tests
+crates/execution/move/vm/move/crates/move-ir-to-bytecode	crates/execution/move/language/compiler/move-ir-to-bytecode	move-ir-to-bytecode
+crates/execution/move/vm/move/crates/move-ir-to-bytecode-syntax	crates/execution/move/language/compiler/move-ir-to-bytecode-syntax	move-ir-to-bytecode-syntax
+crates/execution/move/vm/move/crates/move-ir-types	crates/execution/move/language/core/move-ir-types	move-ir-types
+crates/execution/move/vm/move/crates/move-model	crates/execution/move/language/compiler/move-model	move-model
+crates/execution/move/vm/move/crates/move-model-2	crates/execution/move/language/compiler/move-model-2	move-model-2
+crates/execution/move/vm/move/crates/move-package	crates/execution/move/language/packages/move-package	move-package
+crates/execution/move/vm/move/crates/move-package-alt	crates/execution/move/language/packages/move-package-alt	move-package-alt
+crates/execution/move/vm/move/crates/move-package-alt-compilation	crates/execution/move/language/packages/move-package-alt-compilation	move-package-alt-compilation
+crates/execution/move/vm/move/crates/move-proc-macros	crates/execution/move/language/compiler/move-proc-macros	move-proc-macros
+crates/execution/move/vm/move/crates/move-regex-borrow-graph	crates/execution/move/language/compiler/move-regex-borrow-graph	move-regex-borrow-graph
+crates/execution/move/vm/move/crates/move-stackless-bytecode	crates/execution/move/language/compiler/move-stackless-bytecode	move-stackless-bytecode
+crates/execution/move/vm/move/crates/move-stackless-bytecode-2	crates/execution/move/language/compiler/move-stackless-bytecode-2	move-stackless-bytecode-2
+crates/execution/move/vm/move/crates/move-stdlib	crates/execution/move/language/stdlib	move-stdlib
+crates/execution/move/vm/move/crates/move-symbol-pool	crates/execution/move/language/core/move-symbol-pool	move-symbol-pool
+crates/execution/move/vm/move/crates/move-trace-format	crates/execution/move/language/core/move-trace-format	move-trace-format
+crates/execution/move/vm/move/crates/move-transactional-test-runner	crates/execution/move/language/testing/move-transactional-test-runner	move-transactional-test-runner
+crates/execution/move/vm/move/crates/move-unit-test	crates/execution/move/language/testing/move-unit-test	move-unit-test
+crates/execution/move/vm/move/crates/move-vm-config	crates/execution/move/language/vm/move-vm-config	move-vm-config
+crates/execution/move/vm/move/crates/move-vm-profiler	crates/execution/move/language/vm/move-vm-profiler	move-vm-profiler
+crates/execution/move/vm/move/crates/move-vm-runtime	crates/execution/move/language/vm/move-vm-runtime	move-vm-runtime
+crates/execution/move/vm/move/crates/move-vm-transactional-tests	crates/execution/move/language/testing/move-vm-transactional-tests	move-vm-transactional-tests
+crates/execution/move/vm/move/crates/serializer-tests	crates/execution/move/language/testing/serializer-tests	serializer-tests
+crates/execution/move/vm/move/crates/test-generation	crates/execution/move/language/testing/test-generation	test-generation
+crates/execution/move/vm/move/move-execution/v0/crates/bytecode-verifier-tests	crates/execution/move/language/versions/v0/testing	bytecode-verifier-tests-v0
+crates/execution/move/vm/move/move-execution/v0/crates/move-bytecode-verifier	crates/execution/move/language/versions/v0/verifier	move-bytecode-verifier-v0
+crates/execution/move/vm/move/move-execution/v0/crates/move-stdlib-natives	crates/execution/move/language/versions/v0/stdlib	move-stdlib-natives-v0
+crates/execution/move/vm/move/move-execution/v0/crates/move-vm-runtime	crates/execution/move/language/versions/v0/vm/move-vm-runtime	move-vm-runtime-v0
+crates/execution/move/vm/move/move-execution/v0/crates/move-vm-types	crates/execution/move/language/versions/v0/vm/move-vm-types	move-vm-types-v0
+crates/execution/move/vm/move/move-execution/v1/crates/bytecode-verifier-tests	crates/execution/move/language/versions/v1/testing	bytecode-verifier-tests-v1
+crates/execution/move/vm/move/move-execution/v1/crates/move-bytecode-verifier	crates/execution/move/language/versions/v1/verifier	move-bytecode-verifier-v1
+crates/execution/move/vm/move/move-execution/v1/crates/move-stdlib-natives	crates/execution/move/language/versions/v1/stdlib	move-stdlib-natives-v1
+crates/execution/move/vm/move/move-execution/v1/crates/move-vm-runtime	crates/execution/move/language/versions/v1/vm/move-vm-runtime	move-vm-runtime-v1
+crates/execution/move/vm/move/move-execution/v1/crates/move-vm-types	crates/execution/move/language/versions/v1/vm/move-vm-types	move-vm-types-v1
+crates/execution/move/vm/move/move-execution/v2/crates/bytecode-verifier-tests	crates/execution/move/language/versions/v2/testing	bytecode-verifier-tests-v2
+crates/execution/move/vm/move/move-execution/v2/crates/move-abstract-interpreter	crates/execution/move/language/versions/v2/compiler	move-abstract-interpreter-v2
+crates/execution/move/vm/move/move-execution/v2/crates/move-bytecode-verifier	crates/execution/move/language/versions/v2/verifier	move-bytecode-verifier-v2
+crates/execution/move/vm/move/move-execution/v2/crates/move-stdlib-natives	crates/execution/move/language/versions/v2/stdlib	move-stdlib-natives-v2
+crates/execution/move/vm/move/move-execution/v2/crates/move-vm-runtime	crates/execution/move/language/versions/v2/vm/move-vm-runtime	move-vm-runtime-v2
+crates/execution/move/vm/move/move-execution/v2/crates/move-vm-types	crates/execution/move/language/versions/v2/vm/move-vm-types	move-vm-types-v2
+crates/execution/move/vm/move/move-execution/v3/crates/bytecode-verifier-tests	crates/execution/move/language/versions/v3/testing	bytecode-verifier-tests-v3
+crates/execution/move/vm/move/move-execution/v3/crates/move-abstract-interpreter	crates/execution/move/language/versions/v3/compiler	move-abstract-interpreter-v3
+crates/execution/move/vm/move/move-execution/v3/crates/move-bytecode-verifier	crates/execution/move/language/versions/v3/verifier	move-bytecode-verifier-v3
+crates/execution/move/vm/move/move-execution/v3/crates/move-stdlib-natives	crates/execution/move/language/versions/v3/stdlib	move-stdlib-natives-v3
+crates/execution/move/vm/move/move-execution/v3/crates/move-vm-runtime	crates/execution/move/language/versions/v3/vm/move-vm-runtime	move-vm-runtime-v3
+crates/execution/move/vm/move/move-execution/v3/crates/move-vm-types	crates/execution/move/language/versions/v3/vm/move-vm-types	move-vm-types-v3
+crates/execution/move/vm/move/tooling/tree-sitter	crates/execution/move/language/tools/tree-sitter	tree-sitter-move
+crates/execution/packages/package-alt	crates/execution/packages/alt	sui-package-alt
+crates/execution/packages/package-resolver	crates/execution/packages/resolver	sui-package-resolver
+crates/execution/sui/execution	crates/execution/sui	sui-execution
+crates/execution/sui/execution/cut	crates/execution/sui/cut	sui-execution-cut
+crates/execution/sui/execution/latest/sui-adapter	crates/execution/sui/latest/sui-adapter	sui-adapter-latest
+crates/execution/sui/execution/latest/sui-move-natives	crates/execution/sui/latest/sui-move-natives	sui-move-natives-latest
+crates/execution/sui/execution/latest/sui-verifier	crates/execution/sui/latest/sui-verifier	sui-verifier-latest
+crates/execution/sui/execution/v0/sui-adapter	crates/execution/sui/v0/sui-adapter	sui-adapter-v0
+crates/execution/sui/execution/v0/sui-move-natives	crates/execution/sui/v0/sui-move-natives	sui-move-natives-v0
+crates/execution/sui/execution/v0/sui-verifier	crates/execution/sui/v0/sui-verifier	sui-verifier-v0
+crates/execution/sui/execution/v1/sui-adapter	crates/execution/sui/v1/sui-adapter	sui-adapter-v1
+crates/execution/sui/execution/v1/sui-move-natives	crates/execution/sui/v1/sui-move-natives	sui-move-natives-v1
+crates/execution/sui/execution/v1/sui-verifier	crates/execution/sui/v1/sui-verifier	sui-verifier-v1
+crates/execution/sui/execution/v2/sui-adapter	crates/execution/sui/v2/sui-adapter	sui-adapter-v2
+crates/execution/sui/execution/v2/sui-move-natives	crates/execution/sui/v2/sui-move-natives	sui-move-natives-v2
+crates/execution/sui/execution/v2/sui-verifier	crates/execution/sui/v2/sui-verifier	sui-verifier-v2
+crates/execution/sui/execution/v3/sui-adapter	crates/execution/sui/v3/sui-adapter	sui-adapter-v3
+crates/execution/sui/execution/v3/sui-move-natives	crates/execution/sui/v3/sui-move-natives	sui-move-natives-v3
+crates/execution/sui/execution/v3/sui-verifier	crates/execution/sui/v3/sui-verifier	sui-verifier-v3
+crates/execution/source-validation-validation	crates/execution/source-validation	sui-source-validation
+crates/metrics/indexing/indexer-metrics	crates/metrics/indexing	sui-indexer-alt-metrics
+crates/metrics/runtime/metrics	crates/metrics	mysten-metrics
+crates/metrics/runtime/metrics/prometheus-closure	crates/metrics/prometheus-closure	prometheus-closure-metric
+crates/metrics/runtime/metrics/push-client	crates/metrics/push-client	sui-metrics-push-client
+crates/metrics/runtime/telemetry	crates/metrics/telemetry	sui-telemetry
+crates/metrics/runtime/telemetry/subscribers	crates/metrics/telemetry/subscribers	telemetry-subscribers
+crates/metrics/tools/metric-checker	crates/metrics/checker	sui-metric-checker
+crates/network/consensus/authority-aggregation	crates/network/authority-aggregation	sui-authority-aggregation
+crates/network/transport/mysten-network	crates/network/transport/mysten	mysten-network
+crates/network/transport/sui-network	crates/network/transport/sui	sui-network
+crates/protocol/bridges/bridge	crates/protocol/bridge	sui-bridge
+crates/protocol/bridges/bridge-schema	crates/protocol/bridge/schema	sui-bridge-schema
+crates/protocol/naming/name-service	crates/protocol/name-service	sui-name-service
+crates/protocol/rendering/display	crates/protocol/display	sui-display
+crates/protocol/transactions/transaction-builder	crates/protocol/transactions/builder	sui-transaction-builder
+crates/protocol/transactions/transaction-checks	crates/protocol/transactions/checks	sui-transaction-checks
+crates/storage/data-store	crates/storage/data-store	sui-data-store
+crates/storage/snapshot	crates/storage/snapshot	sui-snapshot
+crates/storage/sui-storage	crates/storage	sui-storage
+crates/storage/key-value/consistent-store	crates/storage/key-value/consistent	sui-consistent-store
+crates/storage/sql/pg-db	crates/storage/sql/postgres	sui-pg-db
+crates/storage/sql/sql-macro	crates/storage/sql/macros	sui-sql-macro
+crates/storage/typed/typed-store	crates/storage/typed/store	typed-store
+crates/storage/typed/typed-store-derive	crates/storage/typed/derive	typed-store-derive
+crates/storage/typed/typed-store-error	crates/storage/typed/error	typed-store-error
+crates/types/enum-compat-compat	crates/types/enum-compat	sui-enum-compat-util
+crates/types/field-count-derive	crates/types/field-count/derive	sui-field-count-derive
+crates/types/rpc-rpc-types	crates/types/rpc	sui-json-rpc-types
+crates/types/sui/sui-types	crates/types/sui	sui-types
+tests/e2e	tests/runtime/e2e	sui-e2e-tests
+tests/e2e/cluster	tests/runtime/e2e/cluster	sui-cluster-test
+tests/json-rpc	tests/api	sui-json-rpc-tests
+tools/genesis-builder	tools/execution/genesis-builder	sui-genesis-builder
+tools/package-dump	tools/packages/package-dump	sui-package-dump
+tools/package-management	tools/packages/package-management	sui-package-management
+tools/replay	tools/execution/replay	sui-replay
+tools/replay-2	tools/execution/replay-2	sui-replay-2
+tools/sui-tool	tools/dev/sui-tool	sui-tool
+tools/surfer	tools/dev/surfer	sui-surfer
+tools/swarm	tools/network/swarm	sui-swarm
+tools/swarm-config	tools/network/swarm-config	sui-swarm-config
+tools/test-cluster	tools/network/test-cluster	test-cluster
+tools/test-validator	tools/network/test-validator	sui-test-validator
+tools/x	tools/dev/x	x
+crates/execution/move/language/crates/bytecode-interpreter-crypto	crates/execution/move/language/vm/bytecode-interpreter-crypto	bytecode-interpreter-crypto
+crates/execution/move/language/crates/bytecode-verifier-libfuzzer	crates/execution/move/language/fuzz/bytecode-verifier-libfuzzer	bytecode-verifier-libfuzzer
+crates/execution/move/language/crates/bytecode-verifier-prop-tests	crates/execution/move/language/fuzz/bytecode-verifier-prop-tests	bytecode-verifier-prop-tests
+crates/execution/move/language/crates/bytecode-verifier-tests	crates/execution/move/language/testing/bytecode-verifier-tests	bytecode-verifier-tests
+crates/execution/move/language/crates/bytecode-verifier-transactional-tests	crates/execution/move/language/testing/bytecode-verifier-transactional-tests	bytecode-verifier-transactional-tests
+crates/execution/move/language/crates/enum-compat-util	crates/execution/move/language/core/enum-compat-util	enum-compat-util
+crates/execution/move/language/crates/invalid-mutations	crates/execution/move/language/testing/invalid-mutations	invalid-mutations
+crates/execution/move/language/crates/jsonrpc	crates/execution/move/language/api	jsonrpc
+crates/execution/move/language/crates/language-benchmarks	crates/execution/move/language/benchmarks	language-benchmarks
+crates/execution/move/language/crates/module-generation	crates/execution/move/language/compiler/module-generation	module-generation
+crates/execution/move/language/crates/move-abstract-interpreter	crates/execution/move/language/compiler/move-abstract-interpreter	move-abstract-interpreter
+crates/execution/move/language/crates/move-abstract-stack	crates/execution/move/language/compiler/move-abstract-stack	move-abstract-stack
+crates/execution/move/language/crates/move-analyzer	crates/execution/move/language/tools/move-analyzer	move-analyzer
+crates/execution/move/language/crates/move-binary-format	crates/execution/move/language/core/move-binary-format	move-binary-format
+crates/execution/move/language/crates/move-borrow-graph	crates/execution/move/language/compiler/move-borrow-graph	move-borrow-graph
+crates/execution/move/language/crates/move-bytecode-source-map	crates/execution/move/language/core/move-bytecode-source-map	move-bytecode-source-map
+crates/execution/move/language/crates/move-bytecode-utils	crates/execution/move/language/core/move-bytecode-utils	move-bytecode-utils
+crates/execution/move/language/crates/move-bytecode-verifier	crates/execution/move/language/verifier/move-bytecode-verifier	move-bytecode-verifier
+crates/execution/move/language/crates/move-bytecode-verifier-meter	crates/execution/move/language/verifier/move-bytecode-verifier-meter	move-bytecode-verifier-meter
+crates/execution/move/language/crates/move-bytecode-viewer	crates/execution/move/language/tools/move-bytecode-viewer	move-bytecode-viewer
+crates/execution/move/language/crates/move-cli	crates/execution/move/language/tools/move-cli	move-cli
+crates/execution/move/language/crates/move-command-line-common	crates/execution/move/language/core/move-command-line-common	move-command-line-common
+crates/execution/move/language/crates/move-compiler	crates/execution/move/language/compiler/move-compiler	move-compiler
+crates/execution/move/language/crates/move-compiler-transactional-tests	crates/execution/move/language/testing/move-compiler-transactional-tests	move-compiler-transactional-tests
+crates/execution/move/language/crates/move-core-types	crates/execution/move/language/core/move-core-types	move-core-types
+crates/execution/move/language/crates/move-coverage	crates/execution/move/language/tools/move-coverage	move-coverage
+crates/execution/move/language/crates/move-decompiler	crates/execution/move/language/tools/move-decompiler	move-decompiler
+crates/execution/move/language/crates/move-disassembler	crates/execution/move/language/tools/move-disassembler	move-disassembler
+crates/execution/move/language/crates/move-docgen	crates/execution/move/language/tools/move-docgen	move-docgen
+crates/execution/move/language/crates/move-docgen-tests	crates/execution/move/language/testing/move-docgen-tests	move-docgen-tests
+crates/execution/move/language/crates/move-ir-compiler	crates/execution/move/language/compiler/move-ir-compiler	move-ir-compiler
+crates/execution/move/language/crates/move-ir-compiler-transactional-tests	crates/execution/move/language/testing/move-ir-compiler-transactional-tests	move-ir-compiler-transactional-tests
+crates/execution/move/language/crates/move-ir-to-bytecode	crates/execution/move/language/compiler/move-ir-to-bytecode	move-ir-to-bytecode
+crates/execution/move/language/crates/move-ir-to-bytecode-syntax	crates/execution/move/language/compiler/move-ir-to-bytecode-syntax	move-ir-to-bytecode-syntax
+crates/execution/move/language/crates/move-ir-types	crates/execution/move/language/core/move-ir-types	move-ir-types
+crates/execution/move/language/crates/move-model	crates/execution/move/language/compiler/move-model	move-model
+crates/execution/move/language/crates/move-model-2	crates/execution/move/language/compiler/move-model-2	move-model-2
+crates/execution/move/language/crates/move-package	crates/execution/move/language/packages/move-package	move-package
+crates/execution/move/language/crates/move-package-alt	crates/execution/move/language/packages/move-package-alt	move-package-alt
+crates/execution/move/language/crates/move-package-alt-compilation	crates/execution/move/language/packages/move-package-alt-compilation	move-package-alt-compilation
+crates/execution/move/language/crates/move-proc-macros	crates/execution/move/language/compiler/move-proc-macros	move-proc-macros
+crates/execution/move/language/crates/move-regex-borrow-graph	crates/execution/move/language/compiler/move-regex-borrow-graph	move-regex-borrow-graph
+crates/execution/move/language/crates/move-stackless-bytecode	crates/execution/move/language/compiler/move-stackless-bytecode	move-stackless-bytecode
+crates/execution/move/language/crates/move-stackless-bytecode-2	crates/execution/move/language/compiler/move-stackless-bytecode-2	move-stackless-bytecode-2
+crates/execution/move/language/crates/move-stdlib	crates/execution/move/language/stdlib	move-stdlib
+crates/execution/move/language/crates/move-symbol-pool	crates/execution/move/language/core/move-symbol-pool	move-symbol-pool
+crates/execution/move/language/crates/move-trace-format	crates/execution/move/language/core/move-trace-format	move-trace-format
+crates/execution/move/language/crates/move-transactional-test-runner	crates/execution/move/language/testing/move-transactional-test-runner	move-transactional-test-runner
+crates/execution/move/language/crates/move-unit-test	crates/execution/move/language/testing/move-unit-test	move-unit-test
+crates/execution/move/language/crates/move-vm-config	crates/execution/move/language/vm/move-vm-config	move-vm-config
+crates/execution/move/language/crates/move-vm-profiler	crates/execution/move/language/vm/move-vm-profiler	move-vm-profiler
+crates/execution/move/language/crates/move-vm-runtime	crates/execution/move/language/vm/move-vm-runtime	move-vm-runtime
+crates/execution/move/language/crates/move-vm-transactional-tests	crates/execution/move/language/testing/move-vm-transactional-tests	move-vm-transactional-tests
+crates/execution/move/language/crates/serializer-tests	crates/execution/move/language/testing/serializer-tests	serializer-tests
+crates/execution/move/language/crates/test-generation	crates/execution/move/language/testing/test-generation	test-generation
+crates/execution/move/language/move-execution/v0/crates/bytecode-verifier-tests	crates/execution/move/language/versions/v0/testing	bytecode-verifier-tests-v0
+crates/execution/move/language/move-execution/v0/crates/move-bytecode-verifier	crates/execution/move/language/versions/v0/verifier	move-bytecode-verifier-v0
+crates/execution/move/language/move-execution/v0/crates/move-stdlib-natives	crates/execution/move/language/versions/v0/stdlib	move-stdlib-natives-v0
+crates/execution/move/language/move-execution/v0/crates/move-vm-runtime	crates/execution/move/language/versions/v0/vm/move-vm-runtime	move-vm-runtime-v0
+crates/execution/move/language/move-execution/v0/crates/move-vm-types	crates/execution/move/language/versions/v0/vm/move-vm-types	move-vm-types-v0
+crates/execution/move/language/move-execution/v1/crates/bytecode-verifier-tests	crates/execution/move/language/versions/v1/testing	bytecode-verifier-tests-v1
+crates/execution/move/language/move-execution/v1/crates/move-bytecode-verifier	crates/execution/move/language/versions/v1/verifier	move-bytecode-verifier-v1
+crates/execution/move/language/move-execution/v1/crates/move-stdlib-natives	crates/execution/move/language/versions/v1/stdlib	move-stdlib-natives-v1
+crates/execution/move/language/move-execution/v1/crates/move-vm-runtime	crates/execution/move/language/versions/v1/vm/move-vm-runtime	move-vm-runtime-v1
+crates/execution/move/language/move-execution/v1/crates/move-vm-types	crates/execution/move/language/versions/v1/vm/move-vm-types	move-vm-types-v1
+crates/execution/move/language/move-execution/v2/crates/bytecode-verifier-tests	crates/execution/move/language/versions/v2/testing	bytecode-verifier-tests-v2
+crates/execution/move/language/move-execution/v2/crates/move-abstract-interpreter	crates/execution/move/language/versions/v2/compiler	move-abstract-interpreter-v2
+crates/execution/move/language/move-execution/v2/crates/move-bytecode-verifier	crates/execution/move/language/versions/v2/verifier	move-bytecode-verifier-v2
+crates/execution/move/language/move-execution/v2/crates/move-stdlib-natives	crates/execution/move/language/versions/v2/stdlib	move-stdlib-natives-v2
+crates/execution/move/language/move-execution/v2/crates/move-vm-runtime	crates/execution/move/language/versions/v2/vm/move-vm-runtime	move-vm-runtime-v2
+crates/execution/move/language/move-execution/v2/crates/move-vm-types	crates/execution/move/language/versions/v2/vm/move-vm-types	move-vm-types-v2
+crates/execution/move/language/move-execution/v3/crates/bytecode-verifier-tests	crates/execution/move/language/versions/v3/testing	bytecode-verifier-tests-v3
+crates/execution/move/language/move-execution/v3/crates/move-abstract-interpreter	crates/execution/move/language/versions/v3/compiler	move-abstract-interpreter-v3
+crates/execution/move/language/move-execution/v3/crates/move-bytecode-verifier	crates/execution/move/language/versions/v3/verifier	move-bytecode-verifier-v3
+crates/execution/move/language/move-execution/v3/crates/move-stdlib-natives	crates/execution/move/language/versions/v3/stdlib	move-stdlib-natives-v3
+crates/execution/move/language/move-execution/v3/crates/move-vm-runtime	crates/execution/move/language/versions/v3/vm/move-vm-runtime	move-vm-runtime-v3
+crates/execution/move/language/move-execution/v3/crates/move-vm-types	crates/execution/move/language/versions/v3/vm/move-vm-types	move-vm-types-v3
+crates/execution/move/language/tooling/prettier-extension	crates/execution/move/language/tools/prettier-extension	
+crates/execution/move/language/tooling/prettier-move	crates/execution/move/language/tools/prettier-move	
+crates/execution/move/language/tooling/tree-sitter	crates/execution/move/language/tools/tree-sitter	tree-sitter-move
+
+# polish-pass: redundant wrapper flattening
+bench/network/anemo	bench/network	flatten single network benchmark crate
+crates/api/rpc/api	crates/api/rpc	flatten redundant api/rpc/api wrapper
+crates/api/serialization/json	crates/api/serialization	flatten single serialization crate
+crates/consensus/core	crates/consensus	flatten consensus-core into the consensus domain root
+crates/core/async/futures	crates/core/futures	remove one-crate async wrapper
+crates/crypto/forking/fork	crates/crypto/fork	remove one-crate forking wrapper
+crates/crypto/identity/keys	crates/crypto/keys	move keys directly under crypto
+crates/crypto/primitives/shared-crypto	crates/crypto/shared-crypto	move shared crypto directly under crypto
+crates/crypto/transport/tls	crates/crypto/tls	move TLS directly under crypto
+crates/execution/move/language/api/jsonrpc	crates/execution/move/language/api	flatten Move jsonrpc API crate
+crates/execution/move/language/benchmarks/language-benchmarks	crates/execution/move/language/benchmarks	flatten Move language benchmark crate
+crates/execution/move/language/stdlib/move-stdlib	crates/execution/move/language/stdlib	flatten Move stdlib crate
+crates/execution/move/language/versions/v0/stdlib/move-stdlib-natives	crates/execution/move/language/versions/v0/stdlib	flatten v0 stdlib natives
+crates/execution/move/language/versions/v0/testing/bytecode-verifier-tests	crates/execution/move/language/versions/v0/testing	flatten v0 verifier tests
+crates/execution/move/language/versions/v0/verifier/move-bytecode-verifier	crates/execution/move/language/versions/v0/verifier	flatten v0 verifier
+crates/execution/move/language/versions/v1/stdlib/move-stdlib-natives	crates/execution/move/language/versions/v1/stdlib	flatten v1 stdlib natives
+crates/execution/move/language/versions/v1/testing/bytecode-verifier-tests	crates/execution/move/language/versions/v1/testing	flatten v1 verifier tests
+crates/execution/move/language/versions/v1/verifier/move-bytecode-verifier	crates/execution/move/language/versions/v1/verifier	flatten v1 verifier
+crates/execution/move/language/versions/v2/compiler/move-abstract-interpreter	crates/execution/move/language/versions/v2/compiler	flatten v2 abstract interpreter
+crates/execution/move/language/versions/v2/stdlib/move-stdlib-natives	crates/execution/move/language/versions/v2/stdlib	flatten v2 stdlib natives
+crates/execution/move/language/versions/v2/testing/bytecode-verifier-tests	crates/execution/move/language/versions/v2/testing	flatten v2 verifier tests
+crates/execution/move/language/versions/v2/verifier/move-bytecode-verifier	crates/execution/move/language/versions/v2/verifier	flatten v2 verifier
+crates/execution/move/language/versions/v3/compiler/move-abstract-interpreter	crates/execution/move/language/versions/v3/compiler	flatten v3 abstract interpreter
+crates/execution/move/language/versions/v3/stdlib/move-stdlib-natives	crates/execution/move/language/versions/v3/stdlib	flatten v3 stdlib natives
+crates/execution/move/language/versions/v3/testing/bytecode-verifier-tests	crates/execution/move/language/versions/v3/testing	flatten v3 verifier tests
+crates/execution/move/language/versions/v3/verifier/move-bytecode-verifier	crates/execution/move/language/versions/v3/verifier	flatten v3 verifier
+crates/execution/validation/source	crates/execution/source-validation	remove one-crate validation/source wrapper
+crates/metrics/core	crates/metrics	flatten mysten-metrics into the metrics domain root
+crates/metrics/tools/checker	crates/metrics/checker	move metric checker directly under metrics
+crates/network/consensus/aggregation	crates/network/authority-aggregation	remove one-crate network/consensus wrapper
+crates/network/edge/proxy	crates/network/proxy	move proxy directly under network
+crates/protocol/bridge/core	crates/protocol/bridge	flatten bridge core into bridge root
+crates/protocol/economics/cost	crates/protocol/cost	move cost directly under protocol
+crates/protocol/naming/service	crates/protocol/name-service	replace naming/service wrapper with name-service
+crates/storage/core	crates/storage	flatten sui-storage into the storage domain root
+crates/storage/search/inverted-index	crates/storage/inverted-index	move inverted-index directly under storage
+crates/types/consensus/consensus-types	crates/types/consensus	flatten consensus types into types/consensus root
+crates/types/compatibility/enum	crates/types/enum-compat	replace compatibility/enum wrapper with enum-compat
+crates/types/rpc/json	crates/types/rpc	flatten single rpc json types crate
+tests/api/json-rpc	tests/api	flatten single api test crate
+tests/consensus/simtests	tests/consensus	flatten single consensus simtest crate
+tests/fuzz/transaction-fuzzer	tests/fuzz	flatten single fuzz crate
+
+# final-polish-pass: remaining single-crate wrappers
+crates/api/indexing/readers/indexer-reader	crates/api/indexing/reader	replace single readers/indexer-reader wrapper with reader
+crates/runtime/testing/simulator	crates/runtime/simulator	move simulator directly under runtime
+crates/types/reflection/field-count	crates/types/field-count	move field-count directly under types
